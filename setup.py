@@ -1,5 +1,6 @@
-from setuptools import setup, find_packages
 from os import path
+
+from setuptools import setup, find_packages
 
 HERE = path.abspath(path.dirname(__file__))
 with open(path.join(HERE, "README.md"), encoding="utf-8") as f:
@@ -8,15 +9,13 @@ with open(path.join(HERE, "README.md"), encoding="utf-8") as f:
 setup(
     name="CPAW",
     descriptions=(
-        "CPAW, `The Cryptic Game Python API Wrapper`, is a pyton wrapper",
-        "for accessing the Cryptic Game."
+        "CPAW, `The Cryptic Game Python API Wrapper`, is a python wrapper for accessing the Cryptic Game."
     ),
     long_description=README,
     long_description_content_type='text/markdown',
     url="https://github.com/citharus/CPAW",
     author="citharus",
     classifiers=[
-        "Development Status :: 3 - Alpha",
         "Topic :: Games/Entertainment",
         "Intended Audience :: Developers",
         "Natural Language :: English",
