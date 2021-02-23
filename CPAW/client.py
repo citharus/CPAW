@@ -25,16 +25,15 @@ class Client:
         self.waiting_for_response: bool = False
         self.notifications: List[dict] = []
 
-    def init(self) -> None:
+    def start(self) -> None:
         try:
             self.websocket: WebSocket = create_connection(self.server)
         except ssl.SSLCertVerificationError:
             self.websocket: WebSocket = create_connection(self.server, sslopt={"cert_reqs": ssl.CERT_NONE})
 
-    def close(self) -> None:
+    def stop(self) -> None:
         self.websocket.close()
         self.websocket: Optional[WebSocket] = None
-        self.logged_in = False
 
     def request(self, data: dict, no_response: bool = False) -> dict:
         if not self.websocket:
@@ -80,22 +79,31 @@ class Client:
             raise InvalidServerResponseException(response)
         return data
 
-    def login(self) -> str:
+    def connect(self) -> str:
         if self.logged_in:
             raise LoggedInException
 
+        self.start()
         response: dict = self.request({"action": "login", "name": self.__username, "password": self.__password})
 
         if "error" in response:
-            self.close()
+            self.stop()
             error: str = response["error"]
             if error == "permissions denied":
                 raise InvalidLoginException()
             raise InvalidServerResponseException(response)
 
         if "token" not in response:
-            self.close()
+            self.stop()
             raise InvalidServerResponseException(response)
 
         self.logged_in = True
         return response["token"]
+
+    def close(self):
+        if not self.logged_in:
+            raise LoggedOutException
+
+        self.request({"action": "logout"})
+        self.stop()
+        self.logged_in = False
