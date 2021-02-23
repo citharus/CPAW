@@ -9,7 +9,7 @@ setup(
     name="CPAW",
     descriptions=(
         "CPAW, `The Cryptic Game Python API Wrapper`, is a pyton wrapper",
-        "for accessing to the Cryptic Game."
+        "for accessing the Cryptic Game."
     ),
     long_description=README,
     long_description_content_type='text/markdown',
