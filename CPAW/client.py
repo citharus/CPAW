@@ -80,11 +80,10 @@ class Client:
             raise InvalidServerResponseException(response)
         return data
 
-    def connect(self) -> str:
+    def login(self) -> str:
         if self.logged_in:
             raise LoggedInException
 
-        self.init()
         response: dict = self.request({"action": "login", "name": self.__username, "password": self.__password})
 
         if "error" in response:
