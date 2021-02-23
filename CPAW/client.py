@@ -21,7 +21,7 @@ class Client:
         self.waiting_for_response: bool = False
         self.notifications: List[dict] = []
 
-    def start(self) -> None:
+    def connect(self) -> None:
         try:
             self.websocket: WebSocket = create_connection(self.server)
         except ssl.SSLCertVerificationError:
