@@ -16,3 +16,7 @@ class Client:
             self.websocket: WebSocket = create_connection(self.server)
         except ssl.SSLCertVerificationError:
             self.websocket: WebSocket = create_connection(self.server, sslopt={"cert_reqs": ssl.CERT_NONE})
+
+    def close(self) -> None:
+        self.websocket.close()
+        self.websocket: Optional[WebSocket] = None
