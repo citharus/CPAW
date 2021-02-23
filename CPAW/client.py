@@ -12,7 +12,8 @@ from .exceptions import (
     MicroserviceException,
     LoggedInException,
     LoggedOutException,
-    InvalidLoginException)
+    InvalidLoginException,
+    InvalidSessionTokenException)
 
 
 class Client:
@@ -107,3 +108,24 @@ class Client:
         self.request({"action": "logout"})
         self.stop()
         self.logged_in = False
+
+    def session(self, token: str) -> str:
+        if self.logged_in:
+            raise LoggedInException
+
+        self.start()
+        response: dict = self.request({"action": "session", "token": token})
+
+        if "error" in response:
+            self.stop()
+            error: str = response["error"]
+            if error == "invalid token":
+                raise InvalidSessionTokenException()
+            raise InvalidServerResponseException(response)
+
+        if "token" not in response:
+            self.stop()
+            raise InvalidServerResponseException(response)
+
+        self.logged_in = True
+        return response["token"]
