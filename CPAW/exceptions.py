@@ -2,6 +2,16 @@ import json
 from typing import Optional
 
 
+class LoggedInException(Exception):
+    def __init__(self):
+        super().__init__("Endpoint cannot be used while client is logged in.")
+
+
+class LoggedOutException(Exception):
+    def __init__(self):
+        super().__init__("Endpoint can only be used while client is logged in.")
+
+
 class InvalidServerResponseException(Exception):
     def __init__(self, response: dict):
         super().__init__("Invalid Server Response: " + json.dumps(response))
