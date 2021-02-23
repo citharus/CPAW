@@ -1,8 +1,15 @@
 import json
+import re
 import ssl
 from typing import Optional, List
+from uuid import uuid4
 
 from websocket import WebSocket, create_connection
+
+from .exceptions import (
+    InvalidServerResponseException,
+    UnknownMicroserviceException,
+    MicroserviceException)
 
 
 class Client:
@@ -42,3 +49,25 @@ class Client:
 
         self.waiting_for_response = False
         return response
+
+    def microservice(self, microservice: str, endpoint: List[str], **data) -> dict:
+        response: dict = self.request({"ms": microservice, "endpoint": endpoint, data: data, "tag": str(uuid4())})
+
+        if "error" in response:
+            error: str = response["error"]
+            if error == "unknown microservice":
+                raise UnknownMicroserviceException(microservice)
+            raise InvalidServerResponseException(response)
+
+        if "data" not in response:
+            raise InvalidServerResponseException(response)
+
+        data: data = response["data"]
+
+        if "error" in data:
+            error: str = data["error"]
+            for exception in MicroserviceException.__subclasses__():
+                if re.fullmatch(exception.error, error):
+                    raise Exception(error, data)
+            raise InvalidServerResponseException(response)
+        return data
