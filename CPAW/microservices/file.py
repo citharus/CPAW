@@ -14,8 +14,8 @@ class File:
     def move(self, new_parent_dir_uuid: str, new_filename: str) -> None:
         response: dict = self.microservice("file", ["file", "move"], new_parent_dir_uuid=new_parent_dir_uuid,
                                            new_filename=new_filename)
-        self.filename = new_filename
-        self.parent_dir_uuid = new_parent_dir_uuid
+        self.filename = response["new_filename"]
+        self.parent_dir_uuid = response["new_parent_dir_uuid"]
 
     def update(self, content: str) -> None:
         self.content = self.microservice("file", ["file", "update"], device_uuid=self.device, file_uuid=self.uuid,
