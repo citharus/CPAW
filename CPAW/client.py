@@ -15,7 +15,8 @@ from .exceptions import (
     InvalidLoginException,
     InvalidSessionTokenException,
     WeakPasswordException,
-    UsernameAlreadyExistsException)
+    UsernameAlreadyExistsException,
+    PermissionDeniedException)
 
 
 class Client:
@@ -103,7 +104,7 @@ class Client:
         self.logged_in = True
         return response["token"]
 
-    def logout(self):
+    def logout(self) -> None:
         if not self.logged_in:
             raise LoggedOutException
 
@@ -154,3 +155,18 @@ class Client:
 
         self.logged_in = True
         return response["token"]
+
+    def change_password(self, username: str, password: str, new: str) -> None:
+        if not self.logged_in:
+            raise LoggedOutException
+
+        self.start()
+        response: dict = self.request({"action": "password", "name": username, "password": password, "new": new})
+
+        if "error" in response:
+            self.stop()
+            error: str = response["error"]
+            if error == "permissions denied":
+                raise PermissionDeniedException
+
+        self.stop()
