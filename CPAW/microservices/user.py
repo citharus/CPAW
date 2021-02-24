@@ -10,4 +10,6 @@ class User:
         data: dict = client.info()
         self.name: str = data["name"]
         self.uuid: str = data["uuid"]
-        self.devices: List[Device] = []
+
+    def devices(self) -> List[Device]:
+        return self.client.microservice("device", ["device", "all"])["devices"]
