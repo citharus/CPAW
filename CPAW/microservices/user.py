@@ -18,5 +18,5 @@ class User:
         response: list = self.client.microservice("device", ["device", "all"])["devices"]
         return [Device(self.client, device) for device in response]
 
-    def spot(self):
+    def spot(self) -> Device:
         return Device(self.client, self.client.microservice("device", ["spot"]))
