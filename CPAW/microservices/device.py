@@ -5,7 +5,12 @@ from CPAW.microservices import File, Hardware
 
 
 class Device:
+    """The representation of a device"""
     def __init__(self, client: Client, data: dict) -> None:
+        """
+        :param Client client: The client used by the user
+        :param dict data: The data of the device
+        """
         self.client: Client = client
         self.uuid: str = data["uuid"]
         self.name: str = data["name"]
@@ -14,6 +19,10 @@ class Device:
         self.starter_device: bool = bool(data["starter_device"])
 
     def ping(self) -> bool:
+        """
+        :return: Power state of the device
+        :rtype: bool
+        """
         return self.client.microservice("device", ["device", "ping"], device_uuid=self.uuid)["online"]
 
     def all(self) -> List[Dict[str, Union[str, bool]]]:
