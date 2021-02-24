@@ -1,7 +1,7 @@
 from typing import Dict, List, Union, Optional
 
 from CPAW import Client
-from CPAW.microservices import File
+from CPAW.microservices import File, Hardware
 
 
 class Device:
@@ -36,3 +36,7 @@ class Device:
         response: list = self.client.microservice("device", ["file", "all"], device_uuid=self.uuid,
                                                   parent_dir_uuid=parent_dir_uuid)["files"]
         return [File(self.client, file) for file in response]
+
+    def hardware(self) -> List[Hardware]:
+        response: list = self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)["hardware"]
+        return [Hardware(hardware) for hardware in response]
