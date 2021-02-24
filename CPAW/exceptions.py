@@ -22,6 +22,16 @@ class InvalidSessionTokenException(Exception):
         super().__init__("Invalid session token")
 
 
+class WeakPasswordException(Exception):
+    def __init__(self):
+        super().__init__("Password is too weak")
+
+
+class UsernameAlreadyExistsException(Exception):
+    def __init__(self):
+        super().__init__("Username already exists")
+
+
 class InvalidServerResponseException(Exception):
     def __init__(self, response: dict):
         super().__init__("Invalid Server Response: " + json.dumps(response))
