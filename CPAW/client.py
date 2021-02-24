@@ -1,7 +1,7 @@
 import json
 import re
 import ssl
-from typing import Optional, List
+from typing import Optional, List, Dict, Union
 from uuid import uuid4
 
 from websocket import WebSocket, create_connection
@@ -170,3 +170,14 @@ class Client:
                 raise PermissionDeniedException
 
         self.stop()
+
+    def info(self) -> Dict[str, Union[str, int]]:
+        if not self.logged_in:
+            raise LoggedOutException
+
+        response: dict = self.request({"action": "info"})
+
+        if "error" in response:
+            raise InvalidServerResponseException(response)
+
+        return response
