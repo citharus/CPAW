@@ -14,3 +14,6 @@ class Device:
 
     def info(self) -> Dict:
         return self.microservice("device", ["device", "info"])
+
+    def ping(self) -> bool:
+        return self.microservice("device", ["device", "ping"])["online"]
