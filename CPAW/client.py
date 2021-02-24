@@ -182,6 +182,19 @@ class Client:
 
         return response
 
+    def status(self) -> Dict[str, int]:
+        if self.logged_in:
+            raise LoggedInException
+
+        self.start()
+        response: dict = self.request({"action": "status"})
+        self.stop()
+
+        if "error" in response:
+            raise InvalidServerResponseException(response)
+
+        return response
+
     def delete_user(self) -> None:
         if not self.logged_in:
             raise LoggedOutException
