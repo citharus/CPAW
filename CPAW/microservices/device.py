@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, List, Union
 
 from CPAW import Client
 
@@ -17,3 +17,6 @@ class Device:
 
     def ping(self) -> bool:
         return self.microservice("device", ["device", "ping"])["online"]
+
+    def all(self) -> List[Dict[str, Union[str, bool]]]:
+        return self.microservice("device", ["device", "all"])["devices"]
