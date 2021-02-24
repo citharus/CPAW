@@ -1,5 +1,3 @@
-from typing import Tuple
-
 from CPAW import Client
 
 
@@ -13,12 +11,12 @@ class File:
         self.parent_dir_uuid: str = data["parent_dir_uuid"]
         self.is_directory: bool = bool(data["id_directory"])
 
-    def move(self, new_parent_dir_uuid: str, new_filename: str) -> Tuple[str, str]:
+    def move(self, new_parent_dir_uuid: str, new_filename: str) -> None:
         response: dict = self.microservice("file", ["file", "move"], new_parent_dir_uuid=new_parent_dir_uuid,
                                            new_filename=new_filename)
-        return response["filename"], response["parent_dir_uuid"]
+        self.filename = new_filename
+        self.parent_dir_uuid = new_parent_dir_uuid
 
-    def update(self, content: str) -> str:
+    def update(self, content: str) -> None:
         self.content = self.microservice("file", ["file", "update"], device_uuid=self.device, file_uuid=self.uuid,
                                          content=content)["content"]
-        return self.content
