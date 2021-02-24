@@ -5,7 +5,7 @@ from CPAW.microservices import Device
 
 
 class User:
-    """The class of an Cryptic Game user account"""
+    """The representation of an Cryptic Game user account"""
     def __init__(self, client: Client) -> None:
         """
         :param Client client: The client used by the user
