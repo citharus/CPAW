@@ -17,3 +17,7 @@ class File:
         response: dict = self.microservice("file", ["file", "move"], new_parent_dir_uuid=new_parent_dir_uuid,
                                            new_filename=new_filename)
         return response["filename"], response["parent_dir_uuid"]
+
+    def update(self, content: str) -> str:
+        return self.microservice("file", ["file", "update"], device_uuid=self.device, file_uuid=self.uuid,
+                                 content=content)["content"]
