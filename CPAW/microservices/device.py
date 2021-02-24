@@ -33,3 +33,6 @@ class Device:
 
     def exists(self) -> bool:
         return self.microservice("device", ["exist"], device_uuid=self.uuid)["exist"]
+
+    def owner(self):
+        self.owner = self.microservice("device", ["owner"], device_uuid=self.uuid)["owner"]
