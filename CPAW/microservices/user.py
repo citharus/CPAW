@@ -16,13 +16,13 @@ class User:
         self.uuid: str = data["uuid"]
 
     def delete_devices(self) -> None:
-        """Delete all `Devices` of an user"""
+        """Delete all devices of the user."""
         self.client.microservice("device", ["delete_user"], user_uuid=self.uuid)
 
     def devices(self) -> List[Device]:
         """
-        List all `Devices` of the user
-        :return: List of Devices
+        List all devices of the user.
+        :return: List of devices
         :rtype: list[Device]
         """
         response: list = self.client.microservice("device", ["device", "all"])["devices"]
@@ -30,7 +30,7 @@ class User:
 
     def spot(self) -> Device:
         """
-        Find a random `Device`.
+        Find a random device.
         :return: A random device
         :rtype: Device
         """

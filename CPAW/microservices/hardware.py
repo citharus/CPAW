@@ -29,7 +29,7 @@ class Hardware:
         :param list[str] processorCooler: The names of the cpu coolers
         :param str powerPack: The name of the power pack
         :param str case: The name of the case
-        :return: A new Device
+        :return: A new device
         :rtype: Device
         """
         response: dict = self.client.microservice("device", ["device", "create"], gpu=gpu, cpu=cpu, mainboard=mainboard,
