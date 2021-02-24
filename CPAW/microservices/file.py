@@ -3,7 +3,7 @@ from CPAW import Client
 
 class File:
     def __init__(self, client: Client, data: dict) -> None:
-        self.client = client
+        self.client: Client = client
         self.uuid: str = data["uuid"]
         self.device: str = data["device"]
         self.filename: str = data["filename"]

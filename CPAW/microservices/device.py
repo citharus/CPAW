@@ -6,7 +6,7 @@ from CPAW.microservices import File
 
 class Device:
     def __init__(self, client: Client, data: dict) -> None:
-        self.client = client
+        self.client: Client = client
         self.uuid: str = data["uuid"]
         self.name: str = data["name"]
         self.owner: str = data["owner"]
