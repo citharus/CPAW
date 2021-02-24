@@ -13,10 +13,10 @@ class Device:
         self.starter_device: bool = bool(data["starter_device"])
 
     def info(self) -> Dict:
-        return self.microservice("device", ["device", "info"])
+        return self.microservice("device", ["device", "info"], device_uuid=self.uuid)
 
     def ping(self) -> bool:
-        return self.microservice("device", ["device", "ping"])["online"]
+        return self.microservice("device", ["device", "ping"], device_uuid=self.uuid)["online"]
 
     def all(self) -> List[Dict[str, Union[str, bool]]]:
         return self.microservice("device", ["device", "all"])["devices"]
