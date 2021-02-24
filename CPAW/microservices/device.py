@@ -30,3 +30,6 @@ class Device:
 
     def delete(self) -> bool:
         return self.microservice("device", ["device", "delete"], device_uuid=self.uuid)["ok"]
+
+    def exists(self) -> bool:
+        return self.microservice("device", ["exist"], device_uuid=self.uuid)["exist"]
