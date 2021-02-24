@@ -39,4 +39,4 @@ class Device:
 
     def hardware(self) -> List[Hardware]:
         response: list = self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)["hardware"]
-        return [Hardware(hardware) for hardware in response]
+        return [Hardware(self.client, hardware) for hardware in response]
