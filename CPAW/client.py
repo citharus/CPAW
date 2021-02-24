@@ -58,7 +58,7 @@ class Client:
         self.waiting_for_response = False
         return response
 
-    def microservice(self, microservice: str, endpoint: List[str], **data) -> Dict[str, Union[str, json]]:
+    def microservice(self, microservice: str, endpoint: List[str], **data) -> dict:
         if not self.logged_in:
             raise LoggedOutException
 
