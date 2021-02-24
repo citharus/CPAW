@@ -12,4 +12,5 @@ class User:
         self.uuid: str = data["uuid"]
 
     def devices(self) -> List[Device]:
-        return self.client.microservice("device", ["device", "all"])["devices"]
+        response: list = self.client.microservice("device", ["device", "all"])["devices"]
+        return [Device(self.client, device) for device in response]
