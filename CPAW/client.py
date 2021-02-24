@@ -58,7 +58,7 @@ class Client:
         self.waiting_for_response = False
         return response
 
-    def microservice(self, microservice: str, endpoint: List[str], **data) -> dict:
+    def microservice(self, microservice: str, endpoint: List[str], **data) -> Dict[str, Union[str, json]]:
         if not self.logged_in:
             raise LoggedOutException
 
@@ -181,3 +181,10 @@ class Client:
             raise InvalidServerResponseException(response)
 
         return response
+
+    def delete_user(self) -> None:
+        if not self.logged_in:
+            raise LoggedOutException
+
+        self.request({"action": "delete"}, True)
+        self.stop()
