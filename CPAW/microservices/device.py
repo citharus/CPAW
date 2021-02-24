@@ -1,3 +1,5 @@
+from typing import Dict
+
 from CPAW import Client
 
 
@@ -9,3 +11,6 @@ class Device:
         self.owner: str = data["owner"]
         self.powered_on: bool = bool(data["powered_on"])
         self.starter_device: bool = bool(data["starter_device"])
+
+    def info(self) -> Dict:
+        return self.microservice("device", ["device", "info"])
