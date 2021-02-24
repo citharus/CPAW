@@ -27,3 +27,6 @@ class Device:
 
     def change_name(self, name: str) -> str:
         return self.microservice("device", ["device", "change_name"], device_uuid=self.uuid, name=name)["name"]
+
+    def delete(self) -> bool:
+        return self.microservice("device", ["device", "delete"], device_uuid=self.uuid)["ok"]
