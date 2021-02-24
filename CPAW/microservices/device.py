@@ -20,3 +20,7 @@ class Device:
 
     def all(self) -> List[Dict[str, Union[str, bool]]]:
         return self.microservice("device", ["device", "all"])["devices"]
+
+    def power(self):
+        self.powered_on = self.microservice("device", ["device", "power"], device_uuid=self.uuid)["powered_on"]
+        return self.powered_on
