@@ -11,6 +11,9 @@ class User:
         self.name: str = data["name"]
         self.uuid: str = data["uuid"]
 
+    def delete_devices(self) -> bool:
+        return self.client.microservice("device", ["delete_user"], user_uuid=self.uuid)["ok"]
+
     def devices(self) -> List[Device]:
         response: list = self.client.microservice("device", ["device", "all"])["devices"]
         return [Device(self.client, device) for device in response]
