@@ -25,9 +25,6 @@ class Device:
         """
         return self.client.microservice("device", ["device", "ping"], device_uuid=self.uuid)["online"]
 
-    def all(self) -> List[Dict[str, Union[str, bool]]]:
-        return self.client.microservice("device", ["device", "all"])["devices"]
-
     def power(self) -> bool:
         self.powered_on = self.client.microservice("device", ["device", "power"], device_uuid=self.uuid)["powered_on"]
         return self.powered_on
