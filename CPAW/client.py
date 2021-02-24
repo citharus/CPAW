@@ -13,7 +13,9 @@ from .exceptions import (
     LoggedInException,
     LoggedOutException,
     InvalidLoginException,
-    InvalidSessionTokenException)
+    InvalidSessionTokenException,
+    WeakPasswordException,
+    UsernameAlreadyExistsException)
 
 
 class Client:
@@ -80,7 +82,7 @@ class Client:
             raise InvalidServerResponseException(response)
         return data
 
-    def connect(self) -> str:
+    def login(self) -> str:
         if self.logged_in:
             raise LoggedInException
 
@@ -101,7 +103,7 @@ class Client:
         self.logged_in = True
         return response["token"]
 
-    def close(self):
+    def logout(self):
         if not self.logged_in:
             raise LoggedOutException
 
@@ -121,6 +123,29 @@ class Client:
             error: str = response["error"]
             if error == "invalid token":
                 raise InvalidSessionTokenException()
+            raise InvalidServerResponseException(response)
+
+        if "token" not in response:
+            self.stop()
+            raise InvalidServerResponseException(response)
+
+        self.logged_in = True
+        return response["token"]
+
+    def register(self, username: str, password: str) -> str:
+        if self.logged_in:
+            raise LoggedInException
+
+        self.start()
+        response: dict = self.request({"action": "register", "name": username, "password": password})
+
+        if "error" in response:
+            self.stop()
+            error: str = response["error"]
+            if error == "invalid password":
+                raise WeakPasswordException()
+            elif error == "username already exists":
+                raise UsernameAlreadyExistsException()
             raise InvalidServerResponseException(response)
 
         if "token" not in response:
