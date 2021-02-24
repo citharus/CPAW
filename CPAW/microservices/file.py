@@ -11,6 +11,9 @@ class File:
         self.parent_dir_uuid: str = data["parent_dir_uuid"]
         self.is_directory: bool = bool(data["id_directory"])
 
+    def info(self):
+        return self.microservice("device", ["file", "info"], device_uuid=self.device, file_uuid=self.uuid)
+
     def move(self, new_parent_dir_uuid: str, new_filename: str) -> None:
         response: dict = self.microservice("file", ["file", "move"], new_parent_dir_uuid=new_parent_dir_uuid,
                                            new_filename=new_filename)
