@@ -63,7 +63,7 @@ class Device:
     def files(self, parent_dir_uuid: Optional[str] = None) -> List[File]:
         """
         List all files in a directory of the device. The default directory is the root one.
-        :param parent_dir_uuid: The uuid of the directory the files should be listed (Default: Root directory)
+        :param str parent_dir_uuid: The uuid of the directory the files should be listed (Default: Root directory)
         :return: List of Files in the directory
         :rtype: list[File]
         """
