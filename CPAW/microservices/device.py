@@ -13,9 +13,6 @@ class Device:
         self.powered_on: bool = bool(data["powered_on"])
         self.starter_device: bool = bool(data["starter_device"])
 
-    def info(self) -> Dict:
-        return self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)
-
     def ping(self) -> bool:
         return self.client.microservice("device", ["device", "ping"], device_uuid=self.uuid)["online"]
 
