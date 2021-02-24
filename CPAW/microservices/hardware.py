@@ -14,7 +14,7 @@ class Hardware:
 
     def create(self, gpu: List[str], cpu: List[str], mainboard: str, ram: List[str], disk: List[str],
                processorCooler: List[str], powerPack: str, case: str) -> Device:
-        return Device(self.client,
-                      self.client.microservice("device", ["device", "create"], gpu=gpu, cpu=cpu, mainboard=mainboard,
-                                               ram=ram, disk=disk, processorCooler=processorCooler, case=case,
-                                               powerPack=powerPack))
+        response: dict = self.client.microservice("device", ["device", "create"], gpu=gpu, cpu=cpu, mainboard=mainboard,
+                                                  ram=ram, disk=disk, processorCooler=processorCooler, case=case,
+                                                  powerPack=powerPack)
+        return Device(self.client, response)
