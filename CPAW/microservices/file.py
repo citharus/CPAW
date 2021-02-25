@@ -1,4 +1,4 @@
-from typing import Dict, Union
+from typing import Dict, Tuple, Union
 
 from CPAW import Client
 
@@ -26,7 +26,7 @@ class File:
         """
         return self.client.microservice("device", ["file", "info"], device_uuid=self.device, file_uuid=self.uuid)
 
-    def move(self, new_parent_dir_uuid: str, new_filename: str) -> None:
+    def move(self, new_parent_dir_uuid: str, new_filename: str) -> Tuple[str, str]:
         """
         Move or rename a file to another location.
         :param str new_parent_dir_uuid: The new directory of the file
@@ -36,15 +36,23 @@ class File:
                                                   new_filename=new_filename)
         self.filename = response["new_filename"]
         self.parent_dir_uuid = response["new_parent_dir_uuid"]
+        return self.filename, self.parent_dir_uuid
 
-    def update(self, content: str) -> None:
+    def update(self, content: str) -> str:
         """
         Update the content of a file.
         :param str content: The new content of the file
+        :return: File content
+        :rtype: str
         """
         self.content = self.client.microservice("device", ["file", "update"], device_uuid=self.device, content=content,
                                                 file_uuid=self.uuid)["content"]
+        return self.content
 
-    def delete(self) -> None:
-        """Delete the file"""
-        self.client.microservice("device", ["file", "delete"], device_uuid=self.device, file_uuid=self.uuid)
+    def delete(self) -> bool:
+        """
+        Delete the file
+        :return: True if the file was deleted
+        :rtype: bool
+        """
+        return self.client.microservice("device", ["file", "delete"], device_uuid=self.device, file_uuid=self.uuid)["ok"]
