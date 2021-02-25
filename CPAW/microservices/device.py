@@ -87,3 +87,11 @@ class Device:
         """
         response: list = self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)["hardware"]
         return [Hardware(self.client, hardware) for hardware in response]
+
+    def usage(self) -> Dict[str, Union[str, float]]:
+        """
+        Return the current resource usage of the devices hardware.
+        :return: Dict with resource usage
+        :rtype: dict
+        """
+        return self.client.microservice("device", ["hardware", "resource"], device_uuid=self.uuid)
