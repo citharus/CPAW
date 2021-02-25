@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Dict, Union
 
 from CPAW import Client
 from CPAW.microservices import File, Hardware
@@ -17,6 +17,14 @@ class Device:
         self.owner: str = data["owner"]
         self.powered_on: bool = bool(data["powered_on"])
         self.starter_device: bool = bool(data["starter_device"])
+
+    def info(self) -> Dict[str, Union[str, bool, List[Dict[str, str]]]]:
+        """
+        Return information about the device and it's hardware in a dictionary.
+        :return: Dictionary containing information
+        :rtype: dict
+        """
+        return self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)
 
     def ping(self) -> bool:
         """
