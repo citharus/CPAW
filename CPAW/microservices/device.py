@@ -95,3 +95,19 @@ class Device:
         :rtype: dict
         """
         return self.client.microservice("device", ["hardware", "resource"], device_uuid=self.uuid)
+
+    def create_file(self, filename: str, content: str, parent_dir_uuid: str = None,
+                    is_directory: bool = False) -> File:
+        """
+        Creates a new file of directory on the device. By default the parent directory is root and it's a file.
+        :param str filename: The file name
+        :param str content: The file content
+        :param str parent_dir_uuid: The parent directory (default: Root)
+        :param bool is_directory: If the file is a directory (default: False)
+        :return: A new file or directory
+        :rtype: File
+        """
+        response: dict = self.client.microservice("device", ["file", "create"], device_uuid=self.uuid, content=content,
+                                                  filename=filename, parent_dir_uuid=parent_dir_uuid,
+                                                  is_directory=is_directory)
+        return File(self.client, response)
