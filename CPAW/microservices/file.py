@@ -2,7 +2,7 @@ from CPAW import Client
 
 
 class File:
-    """The representation of a File"""
+    """The representation of a File."""
     def __init__(self, client: Client, data: dict) -> None:
         """
         :param Client client: The client used by the user
