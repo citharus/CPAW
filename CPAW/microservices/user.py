@@ -55,3 +55,11 @@ class User:
                                                   ram=ram, disk=disk, processorCooler=processorCooler, case=case,
                                                   powerPack=powerPack)
         return Device(self.client, response)
+
+    def starter_device(self) -> Device:
+        """
+        Creates the starter device for the user.
+        :return: The starter device
+        :rtype: Device
+        """
+        return Device(self.client, self.client.microservice("device", ["device", "starter_device"]))
