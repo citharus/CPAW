@@ -11,5 +11,5 @@ class Hardware:
         self.client: Client = client
         self.uuid: str = data["uuid"]
         self.device: str = data["device_uuid"]
-        self.hardware_element: str = data["hardware_element"]
-        self.hardware_type: str = data["hardware_type"]
+        self.name: str = data["hardware_element"]
+        self.type: str = data["hardware_type"]
