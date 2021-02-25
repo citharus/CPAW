@@ -1,3 +1,5 @@
+from typing import Dict, Union
+
 from CPAW import Client
 
 
@@ -15,6 +17,14 @@ class File:
         self.content: str = data["content"]
         self.parent_dir_uuid: str = data["parent_dir_uuid"]
         self.is_directory: bool = bool(data["id_directory"])
+
+    def info(self) -> Dict[str, Union[str, bool]]:
+        """
+        Return information about the file.
+        :return: Dictionary containing information
+        :rtype: dict
+        """
+        return self.client.microservice("device", ["file", "info"], device_uuid=self.device, file_uuid=self.uuid)
 
     def move(self, new_parent_dir_uuid: str, new_filename: str) -> None:
         """
