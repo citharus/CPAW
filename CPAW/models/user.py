@@ -1,7 +1,7 @@
 from typing import List
 
 from CPAW import Client
-from CPAW.microservices import Device
+from CPAW.models import Device
 
 
 class User:

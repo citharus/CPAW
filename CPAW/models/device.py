@@ -1,7 +1,7 @@
 from typing import List, Optional, Dict, Union
 
 from CPAW import Client
-from CPAW.microservices import File, Hardware
+from CPAW.models import File, Hardware
 
 
 class Device:
