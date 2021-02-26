@@ -1,7 +1,8 @@
 from typing import List, Optional, Dict, Union
 
 from CPAW import Client
-from CPAW.models import File, Hardware
+from CPAW.models import File, Hardware, Miner
+from CPAW.models.service import *
 
 
 class Device:
@@ -87,6 +88,24 @@ class Device:
         """
         response: list = self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)["hardware"]
         return [Hardware(self.client, hardware) for hardware in response]
+
+    def services(self) -> List[Service]:
+        response: dict = self.client.microservice("service", ["list"], device_uuid=self.uuid)["services"]
+        services: List[Service] = []
+
+        for service in response:
+            if service["name"] == "ssh":
+                services.append(SSHService(self.client, service))
+            elif service["name"] == "telnet":
+                services.append(TelnetService(self.client, service))
+            elif service["name"] == "portscan":
+                services.append(PortscanService(self.client, service))
+            elif service["name"] == "bruteforce":
+                services.append(BruteforceService(self.client, service))
+            elif service["name"] == "miner":
+                services.append(Miner(self.client, service))
+
+        return services
 
     def usage(self) -> Dict[str, Union[str, float]]:
         """
