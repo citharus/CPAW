@@ -1,5 +1,6 @@
 from .device import Device
 from .file import File
 from .hardware import Hardware
-from .user import User
+from .miner import Miner
 from .service import *
+from .user import User
