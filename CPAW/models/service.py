@@ -61,7 +61,7 @@ class Service:
 
     def scale(self, cpu: int, ram: int, gpu: int, disk: int, network: int) -> bool:
         """
-        Scale a service to only use the assigned hardware resources
+        Scale a service to only use the assigned hardware resources.
         :param int cpu: Given cpu resources
         :param int ram: Given ram resources
         :param int gpu: Given gpu resources
@@ -72,6 +72,15 @@ class Service:
         """
         return self.client.microservice("device", ["hardware", "scale"], device_uuid=self.device, service_uuid=self.uuid,
                                         user=self.owner, cpu=cpu, ram=ram, gpu=gpu, disk=disk, network=network)["ok"]
+
+    def stop(self) -> bool:
+        """
+        Stop the service and scale all other services accordingly.
+        :return: True if the service was stopped
+        :rtype: bool
+        """
+        return self.client.microservice("device", ["hardware", "stop"], device_uuid=self.device, service_uuid=self.uuid,
+                                        user=self.owner)["ok"]
 
 
 class BruteforceService(Service):
