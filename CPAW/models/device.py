@@ -69,6 +69,14 @@ class Device:
         """
         return self.client.microservice("device", ["exist"], device_uuid=self.uuid)["exist"]
 
+    def part_owner(self) -> bool:
+        """
+        Return if the user has hacked this devices and still has access to it.
+        :return: Access status
+        :rtype: bool
+        """
+        return self.client.microservice("service", ["part_owner"], device_uuid=self.uuid)["ok"]
+
     def files(self, parent_dir_uuid: Optional[str] = None) -> List[File]:
         """
         List all files in a directory of the device. The default directory is the root one.
