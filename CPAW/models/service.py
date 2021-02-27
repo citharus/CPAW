@@ -1,3 +1,5 @@
+from typing import Dict, Union
+
 from CPAW import Client
 
 
@@ -15,6 +17,14 @@ class Service:
         self.running_port: int = int(data["running_port"])
         self.device: str = data["device"]
         self.speed: int = int(data["speed"])
+
+    def info(self) -> Dict[str, Union[str, int]]:
+        """
+        Return public information about the service in a dictionary.
+        :return: Dictionary containing information
+        :rtype: dict
+        """
+        return self.client.microservice("service", ["public_info"], device_uuid=self.device, service_uuid=self.uuid)
 
 
 class BruteforceService(Service):
