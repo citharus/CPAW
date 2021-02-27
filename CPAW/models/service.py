@@ -70,8 +70,8 @@ class Service:
         :return: True if services was scaled
         :rtype: bool
         """
-        return self.client.microservice("service", ["hardware", "scale"], service_uuid=self.uuid, cpu=cpu, ram=ram,
-                                        gpu=gpu, disk=disk, network=network)["ok"]
+        return self.client.microservice("device", ["hardware", "scale"], device_uuid=self.device, service_uuid=self.uuid,
+                                        cpu=cpu, ram=ram, gpu=gpu, disk=disk, network=network)["ok"]
 
 
 class BruteforceService(Service):
