@@ -2,7 +2,14 @@ from CPAW.models.service import *
 from CPAW.models import Miner
 
 
-def convert_services(client: Client, service_list: List[Dict[str, Union[str, int, bool]]]) -> List[Service]:
+def convert_services(client: Client, service_list: dict) -> List[Service]:
+    """
+    Convert a list with services as dicts into a list with services.
+    :param Client client: The client used by the user
+    :param dict service_list: The services represented as dicts in a list
+    :return: A list of services
+    :rtype: list[Service]
+    """
     services: List[Service] = []
 
     for service in service_list:
