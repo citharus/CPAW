@@ -26,6 +26,14 @@ class Service:
         """
         return self.client.microservice("service", ["public_info"], device_uuid=self.device, service_uuid=self.uuid)
 
+    def private_info(self) -> Dict[str, Union[str, int, bool]]:
+        """
+        Return private information about the service in a dictionary.
+        :return: Dictionary containing information
+        :rtype: dict
+        """
+        return self.client.microservice("service", ["private_info"], device_uuid=self.device, service_uuid=self.uuid)
+
 
 class BruteforceService(Service):
     """Representation of the bruteforce service."""
