@@ -110,7 +110,7 @@ class Device:
     def usage(self) -> Dict[str, Union[str, float]]:
         """
         Return the current resource usage of the devices hardware.
-        :return: Dict with resource usage
+        :return: Dictionary with resource usage
         :rtype: dict
         """
         return self.client.microservice("device", ["hardware", "resource"], device_uuid=self.uuid)
