@@ -34,6 +34,14 @@ class Service:
         """
         return self.client.microservice("service", ["private_info"], device_uuid=self.device, service_uuid=self.uuid)
 
+    def usage(self) -> Dict[str, int]:
+        """
+        Return the resource usage of the service.
+        :return: Dictionary with resource usage
+        :rtype: dict
+        """
+        return self.client.microservice("device", ["hardware", "process"], service_uuid=self.uuid)
+
 
 class BruteforceService(Service):
     """Representation of the bruteforce service."""
