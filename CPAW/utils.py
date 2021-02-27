@@ -10,7 +10,6 @@ def convert_services(client: Client, service_list: dict) -> List[Service]:
     :param Client client: The client used by the user
     :param dict service_list: The services represented as dicts in a list
     :return: A list of services
-    :rtype: list[Service]
     """
     services: List[Service] = []
 
