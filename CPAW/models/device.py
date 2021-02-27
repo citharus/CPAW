@@ -61,6 +61,14 @@ class Device:
         """
         return self.client.microservice("device", ["device", "delete"], device_uuid=self.uuid)["ok"]
 
+    def restart(self) -> bool:
+        """
+        Start the enforced services of a device that hast just been started.
+        :return: True if the devices has restarted
+        :rtype: bool
+        """
+        return self.client.microservice("service", ["device_restart"], device_uuid=self.uuid, user=self.owner)["ok"]
+
     def exists(self) -> bool:
         """
         Check if the device still exists.
