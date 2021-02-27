@@ -121,3 +121,13 @@ class Device:
                                                   filename=filename, parent_dir_uuid=parent_dir_uuid,
                                                   is_directory=is_directory)
         return File(self.client, response)
+
+    def create_service(self, name: str) -> Service:
+        """
+        Installs a new service on the device.
+        :param str name: The name of the service (Available services: ssh, telnet, portscan, bruteforce)
+        :return: The newly installed service
+        :rtype: Service
+        """
+        response: dict = self.client.microservice("service", ["create"], device_uuid=self.uuid, name=name)
+        return convert_services(self.client, response)[0]
