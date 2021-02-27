@@ -1,7 +1,6 @@
-from typing import List
-
 from CPAW import Client
 from CPAW.models import Device
+from CPAW.utils import *
 
 
 class User:
@@ -82,3 +81,12 @@ class User:
         return self.client.microservice("device", ["hardware", "build"], gpu=gpu, cpu=cpu, mainboard=mainboard,
                                         ram=ram, disk=disk, processorCooler=processorCooler, case=case,
                                         powerPack=powerPack)["success"]
+
+    def list_part_owner(self) -> List[Service]:
+        """
+        Return a list with services the user has hacked.
+        :return: A list with services.
+        :rtype: list[Service]
+        """
+        response: dict = self.client.microservice("service", ["list_part_owner"])["services"]
+        return convert_services(self.client, response)
