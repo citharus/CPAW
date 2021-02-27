@@ -50,6 +50,14 @@ class Service:
         """
         return self.client.microservice("service", ["toggle"], device_uuid=self.device, service_uuid=self.uuid)["running"]
 
+    def delete(self) -> bool:
+        """
+        Delete the service.
+        :return: True if the service was deleted
+        :rtype: bool
+        """
+        return self.client.microservice("service", ["delete"], device_uuid=self.device, service_uuid=self.uuid)["ok"]
+
 
 class BruteforceService(Service):
     """Representation of the bruteforce service."""
