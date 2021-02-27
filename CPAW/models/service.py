@@ -59,6 +59,20 @@ class Service:
         """
         return self.client.microservice("service", ["delete"], device_uuid=self.device, service_uuid=self.uuid)["ok"]
 
+    def scale(self, cpu: int, ram: int, gpu: int, disk: int, network: int) -> bool:
+        """
+        Scale a service to only use the assigned hardware resources
+        :param int cpu: Given cpu resources
+        :param int ram: Given ram resources
+        :param int gpu: Given gpu resources
+        :param int disk: Given disk resources
+        :param int network: Given network resources
+        :return: True if services was scaled
+        :rtype: bool
+        """
+        return self.client.microservice("service", ["hardware", "scale"], service_uuid=self.uuid, cpu=cpu, ram=ram,
+                                        gpu=gpu, disk=disk, network=network)["ok"]
+
 
 class BruteforceService(Service):
     """Representation of the bruteforce service."""
