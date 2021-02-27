@@ -1,5 +1,7 @@
-from CPAW.models.service import *
-from CPAW.models import Miner
+from typing import List
+
+from CPAW import Client
+from CPAW.models import Service, BruteforceService, PortscanService, Miner, SSHService, TelnetService
 
 
 def convert_services(client: Client, service_list: dict) -> List[Service]:
