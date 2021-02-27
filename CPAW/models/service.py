@@ -71,7 +71,7 @@ class Service:
         :rtype: bool
         """
         return self.client.microservice("device", ["hardware", "scale"], device_uuid=self.device, service_uuid=self.uuid,
-                                        cpu=cpu, ram=ram, gpu=gpu, disk=disk, network=network)["ok"]
+                                        user=self.owner, cpu=cpu, ram=ram, gpu=gpu, disk=disk, network=network)["ok"]
 
 
 class BruteforceService(Service):
