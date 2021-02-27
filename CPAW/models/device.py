@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Dict, Union
 
 from CPAW import Client
 from CPAW.models import File, Hardware
