@@ -1,8 +1,8 @@
-from typing import List, Optional, Dict, Union
+from typing import Optional
 
 from CPAW import Client
-from CPAW.models import File, Hardware, Miner
-from CPAW.models.service import *
+from CPAW.models import File, Hardware
+from CPAW.utils import *
 
 
 class Device:
@@ -90,22 +90,13 @@ class Device:
         return [Hardware(self.client, hardware) for hardware in response]
 
     def services(self) -> List[Service]:
+        """
+        Return a list with services on the device.
+        :return: A list with services
+        :rtype: list[Service]
+        """
         response: dict = self.client.microservice("service", ["list"], device_uuid=self.uuid)["services"]
-        services: List[Service] = []
-
-        for service in response:
-            if service["name"] == "ssh":
-                services.append(SSHService(self.client, service))
-            elif service["name"] == "telnet":
-                services.append(TelnetService(self.client, service))
-            elif service["name"] == "portscan":
-                services.append(PortscanService(self.client, service))
-            elif service["name"] == "bruteforce":
-                services.append(BruteforceService(self.client, service))
-            elif service["name"] == "miner":
-                services.append(Miner(self.client, service))
-
-        return services
+        return convert_services(self.client, response)
 
     def usage(self) -> Dict[str, Union[str, float]]:
         """
