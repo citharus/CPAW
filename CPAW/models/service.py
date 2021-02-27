@@ -1,6 +1,7 @@
-from typing import Dict, Union
+from typing import Dict, List, Union
 
 from CPAW import Client
+from CPAW.models import Miner
 
 
 class Service:
@@ -77,6 +78,31 @@ class PortscanService(Service):
         :param dict data: The data of the portscan service
         """
         super(PortscanService, self).__init__(client, data)
+
+    def scan(self, target_device: str) -> List[Service]:
+        """
+        Scan a device for running services.
+        :param str target_device:
+        :return: List with services of the target device
+        :rtype: list[Services]
+        """
+        response: dict = self.client.microservice("service", ["use"], device_uuid=self.device, service_uuid=self.uuid,
+                                                  target_device=target_device)["services"]
+        services: List[Service] = []
+
+        for service in response:
+            if service["name"] == "ssh":
+                services.append(SSHService(self.client, service))
+            elif service["name"] == "telnet":
+                services.append(TelnetService(self.client, service))
+            elif service["name"] == "portscan":
+                services.append(PortscanService(self.client, service))
+            elif service["name"] == "bruteforce":
+                services.append(BruteforceService(self.client, service))
+            elif service["name"] == "miner":
+                services.append(Miner(self.client, service))
+
+        return services
 
 
 class SSHService(Service):
