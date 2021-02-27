@@ -38,7 +38,7 @@ class Device:
     def power(self) -> bool:
         """
         Turn the device on or off.
-        :return: Power state
+        :return: Power state of the device
         :rtype: bool
         """
         self.powered_on = self.client.microservice("device", ["device", "power"], device_uuid=self.uuid)["powered_on"]
