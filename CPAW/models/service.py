@@ -42,6 +42,14 @@ class Service:
         """
         return self.client.microservice("device", ["hardware", "process"], service_uuid=self.uuid)
 
+    def toggle(self) -> bool:
+        """
+        Turn the service on or off.
+        :return: Power state of the service
+        :rtype: bool
+        """
+        return self.client.microservice("service", ["toggle"], device_uuid=self.device, service_uuid=self.uuid)["running"]
+
 
 class BruteforceService(Service):
     """Representation of the bruteforce service."""
