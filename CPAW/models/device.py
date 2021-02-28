@@ -163,3 +163,11 @@ class Device:
         :rtype: bool
         """
         return self.client.microservice("service", ["hardware", "stop"], device_uuid=self.uuid)["ok"]
+
+    def delete_services(self) -> bool:
+        """
+        Delete all services on the device.
+        :return: True if all services were deleted
+        :rtype: bool
+        """
+        return self.client.microservice("service", ["hardware", "stop"], device_uuid=self.uuid)["ok"]
