@@ -11,7 +11,7 @@ class Miner(Service):
         """
         super(Miner, self).__init__(client, data)
         self.wallet: str = data["wallet"]
-        self.power: int = int(data["power"])
+        self.power: float = float(data["power"])
 
     def info(self) -> dict:
         """
@@ -21,3 +21,11 @@ class Miner(Service):
         """
         return self.client.microservice("service", ["miner", "get"], service_uuid=self.uuid)
 
+    def power(self, power: float) -> float:
+        """
+        Change the power allocated to the miner.
+        :param float power: The new computing power (0-1)
+        :return: The power of the miner
+        :rtype: float
+        """
+        return self.client.microservice("service", ["miner", "power"], service_uuid=self.uuid, power=power)["power"]
