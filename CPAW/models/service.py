@@ -112,6 +112,15 @@ class BruteforceService(Service):
         return self.client.microservice("service", ["bruteforce", "status"], device_uuid=self.device,
                                         service_uuid=self.uuid)["progress"]
 
+    def stop_attack(self) -> bool:
+        """
+        Stop the running bruteforce attack.
+        :return: If user has access to the device
+        :rtype: bool
+        """
+        return self.client.microservice("service", ["bruteforce", "stop"], device_uuid=self.device,
+                                        service_uuid=self.uuid)["access"]
+
 
 class PortscanService(Service):
     """Representation of the portscan service."""
