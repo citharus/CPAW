@@ -155,3 +155,11 @@ class Device:
         """
         response: dict = self.client.microservice("service", ["create"], device_uuid=self.uuid, name=name)
         return convert_services(self.client, response)[0]
+
+    def stop_services(self) -> bool:
+        """
+        Stop all active service on the device.
+        :return: True if all services were stopped
+        :rtype: bool
+        """
+        return self.client.microservice("service", ["hardware", "stop"], device_uuid=self.uuid)["ok"]
