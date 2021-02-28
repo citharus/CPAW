@@ -1,6 +1,7 @@
 from typing import Dict, Union
 
 from CPAW import Client
+from CPAW.models import Device
 from CPAW.utils import *
 
 
@@ -91,6 +92,17 @@ class BruteforceService(Service):
         :param dict data: The data of the bruteforce service
         """
         super(BruteforceService, self).__init__(client, data)
+
+    def attack(self, target_service: Service) -> bool:
+        """
+        Start a bruteforce attack against the target service.
+        :param Device target_service: The service to hack
+        :return: True if attack has started
+        :rtype: bool
+        """
+        return self.client.microservice("service", ["bruteforce", "attack"], device_uuid=self.device,
+                                        service_uuid=self.uuid, target_device=target_service.device,
+                                        target_service=target_service.uuid)["ok"]
 
 
 class PortscanService(Service):
