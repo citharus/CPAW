@@ -156,6 +156,14 @@ class Device:
         response: dict = self.client.microservice("service", ["create"], device_uuid=self.uuid, name=name)
         return convert_services(self.client, response)[0]
 
+    def create_miner(self) -> Miner:
+        """
+        Installs a new miner on the device.
+        :return: The newly installed miner
+        :rtype: Miner
+        """
+        return Miner(self.client, self.client.microservice("service", ["create"], device_uuid=self.uuid, name="miner"))
+
     def stop_services(self) -> bool:
         """
         Stop all active service on the device.
