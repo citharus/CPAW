@@ -1,7 +1,6 @@
 from typing import Dict, Union
 
 from CPAW import Client
-from CPAW.models import Device
 from CPAW.utils import *
 
 
@@ -96,7 +95,7 @@ class BruteforceService(Service):
     def attack(self, target_service: Service) -> bool:
         """
         Start a bruteforce attack against the target service.
-        :param Device target_service: The service to hack
+        :param Service target_service: The service to hack
         :return: True if attack has started
         :rtype: bool
         """
