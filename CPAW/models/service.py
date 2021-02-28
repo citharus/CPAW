@@ -103,6 +103,15 @@ class BruteforceService(Service):
                                         service_uuid=self.uuid, target_device=target_service.device,
                                         target_service=target_service.uuid)["ok"]
 
+    def status(self) -> int:
+        """
+        Return the progress of the running bruteforce attack.
+        :return: Progress
+        :rtype: int
+        """
+        return self.client.microservice("service", ["bruteforce", "status"], device_uuid=self.device,
+                                        service_uuid=self.uuid)["progress"]
+
 
 class PortscanService(Service):
     """Representation of the portscan service."""
