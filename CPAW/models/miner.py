@@ -12,3 +12,12 @@ class Miner(Service):
         super(Miner, self).__init__(client, data)
         self.wallet: str = data["wallet"]
         self.power: int = int(data["power"])
+
+    def info(self) -> dict:
+        """
+        Return information about the miner in a dictionary.
+        :return: Dictionary containing information
+        :rtype: dict
+        """
+        return self.client.microservice("service", ["miner", "get"], service_uuid=self.uuid)
+
