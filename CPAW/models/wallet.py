@@ -2,7 +2,7 @@ from CPAW import Client
 
 
 class Wallet:
-    def __init__(self, client: Client, data: dict):
+    def __init__(self, client: Client, data: dict) -> None:
         self.client: Client = client
         self.uuid: str = data["source_uuid"]
         self.key: str = data["key"]
