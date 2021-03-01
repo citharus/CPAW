@@ -18,6 +18,7 @@ class User:
         """Delete all devices of the user."""
         self.client.microservice("device", ["delete_user"], user_uuid=self.uuid)
 
+    @property
     def devices(self) -> List[Device]:
         """
         List all devices of the user.
