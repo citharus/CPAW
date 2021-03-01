@@ -83,7 +83,8 @@ class User:
                                         ram=ram, disk=disk, processorCooler=processorCooler, case=case,
                                         powerPack=powerPack)["success"]
 
-    def list_part_owner(self) -> List[Service]:
+    @property
+    def part_owner(self) -> List[Service]:
         """
         Return a list with services the user has hacked.
         :return: A list with services.
