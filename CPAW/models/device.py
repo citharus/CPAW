@@ -1,7 +1,7 @@
 from typing import Optional, Dict, Union
 
 from CPAW import Client
-from CPAW.models import File, Hardware
+from CPAW.models import File, Hardware, Wallet
 from CPAW.utils import *
 
 
@@ -163,6 +163,14 @@ class Device:
         :rtype: Miner
         """
         return Miner(self.client, self.client.microservice("service", ["create"], device_uuid=self.uuid, name="miner"))
+
+    def create_wallet(self) -> Wallet:
+        """
+        Create a new wallet on the device.
+        :return: The new wallet
+        :rtype: Wallet
+        """
+        return Wallet(self.client, self.client.microservice("currency", ["create"]))
 
     def stop_services(self) -> bool:
         """
