@@ -19,6 +19,7 @@ class Service:
         self.device: str = data["device"]
         self.speed: int = int(data["speed"])
 
+    @property
     def info(self) -> Dict[str, Union[str, int]]:
         """
         Return public information about the service in a dictionary.
@@ -27,6 +28,7 @@ class Service:
         """
         return self.client.microservice("service", ["public_info"], device_uuid=self.device, service_uuid=self.uuid)
 
+    @property
     def private_info(self) -> Dict[str, Union[str, int, bool]]:
         """
         Return private information about the service in a dictionary.
