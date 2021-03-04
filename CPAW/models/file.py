@@ -39,16 +39,23 @@ class File:
         self.parent_dir_uuid = response["new_parent_dir_uuid"]
         return self.filename, self.parent_dir_uuid
 
-    def update(self, content: str) -> str:
+    @property
+    def content(self) -> str:
         """
-        Update the content of a file.
-        :param str content: The new content of the file
+        Return the content of the file.
         :return: File content
         :rtype: str
         """
+        return self.content
+
+    @content.setter
+    def content(self, content: str) -> None:
+        """
+        Update the content of the file.
+        :param str content: The new content of the file
+        """
         self.content = self.client.microservice("device", ["file", "update"], device_uuid=self.device, content=content,
                                                 file_uuid=self.uuid)["content"]
-        return self.content
 
     def delete(self) -> bool:
         """
