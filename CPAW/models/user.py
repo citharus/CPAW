@@ -34,13 +34,21 @@ class User:
         response: list = self.client.microservice("device", ["device", "all"])["devices"]
         return [Device(self.client, device) for device in response]
 
-    def delete_devices(self) -> None:
-        """Delete all devices of the user."""
-        self.client.microservice("device", ["delete_user"], user_uuid=self.uuid)
+    def delete_devices(self) -> bool:
+        """
+        Delete all devices of the user.
+        :returns: True if devices were deleted
+        :rtype: bool
+        """
+        return self.client.microservice("device", ["delete_user"], user_uuid=self.uuid)["ok"]
 
-    def delete_wallets(self) -> None:
-        """Delete all wallets of the user."""
-        self.client.microservice("currency", ["delete_user"], user_uuid=self.uuid)
+    def delete_wallets(self) -> bool:
+        """
+        Delete all wallets of the user.
+        :returns: True if devices were deleted
+        :rtype: bool
+        """
+        return self.client.microservice("currency", ["delete_user"], user_uuid=self.uuid)["ok"]
 
     def spot(self) -> Device:
         """
