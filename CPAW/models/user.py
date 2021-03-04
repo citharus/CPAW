@@ -51,7 +51,7 @@ class User:
         return Device(self.client, self.client.microservice("device", ["spot"]))
 
     def create_device(self, gpu: List[str], cpu: List[str], mainboard: str, ram: List[str], disk: List[str],
-               processorCooler: List[str], powerPack: str, case: str) -> Device:
+                      processorCooler: List[str], powerPack: str, case: str) -> Device:
         """
         Creates a new device from provided hardware parts.
         :param list[str] gpu: The names of the graphics processing units
