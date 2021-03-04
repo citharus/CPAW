@@ -14,13 +14,15 @@ class User:
         self.name: str = data["name"]
         self.uuid: str = data["uuid"]
 
-    def delete_devices(self) -> None:
-        """Delete all devices of the user."""
-        self.client.microservice("device", ["delete_user"], user_uuid=self.uuid)
-
-    def delete_wallets(self) -> bool:
-        """Delete all wallets of the user."""
-        return self.client.microservice("currency", ["delete_user"], user_uuid=self.uuid)["ok"]
+    @property
+    def part_owner(self) -> List[Service]:
+        """
+        Return a list with services the user has hacked.
+        :return: A list with services.
+        :rtype: list[Service]
+        """
+        response: dict = self.client.microservice("service", ["list_part_owner"])["services"]
+        return convert_services(self.client, response)
 
     @property
     def devices(self) -> List[Device]:
@@ -31,6 +33,14 @@ class User:
         """
         response: list = self.client.microservice("device", ["device", "all"])["devices"]
         return [Device(self.client, device) for device in response]
+
+    def delete_devices(self) -> None:
+        """Delete all devices of the user."""
+        self.client.microservice("device", ["delete_user"], user_uuid=self.uuid)
+
+    def delete_wallets(self) -> bool:
+        """Delete all wallets of the user."""
+        return self.client.microservice("currency", ["delete_user"], user_uuid=self.uuid)["ok"]
 
     def spot(self) -> Device:
         """
@@ -86,13 +96,3 @@ class User:
         return self.client.microservice("device", ["hardware", "build"], gpu=gpu, cpu=cpu, mainboard=mainboard,
                                         ram=ram, disk=disk, processorCooler=processorCooler, case=case,
                                         powerPack=powerPack)["success"]
-
-    @property
-    def part_owner(self) -> List[Service]:
-        """
-        Return a list with services the user has hacked.
-        :return: A list with services.
-        :rtype: list[Service]
-        """
-        response: dict = self.client.microservice("service", ["list_part_owner"])["services"]
-        return convert_services(self.client, response)
