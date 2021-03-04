@@ -13,14 +13,6 @@ class Miner(Service):
         self.wallet: str = data["wallet"]
         self.power: float = data["power"]
 
-    def info(self) -> dict:
-        """
-        Return information about the miner in a dictionary.
-        :return: Dictionary containing information
-        :rtype: dict
-        """
-        return self.client.microservice("service", ["miner", "get"], service_uuid=self.uuid)
-
     @property
     def power(self) -> float:
         """
@@ -37,3 +29,11 @@ class Miner(Service):
         :param float power: The new computing power
         """
         self.power = self.client.microservice("service", ["miner", "power"], service_uuid=self.uuid, power=power)
+
+    def info(self) -> dict:
+        """
+        Return information about the miner in a dictionary.
+        :return: Dictionary containing information
+        :rtype: dict
+        """
+        return self.client.microservice("service", ["miner", "get"], service_uuid=self.uuid)
