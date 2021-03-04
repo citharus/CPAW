@@ -1,8 +1,8 @@
-from typing import Optional, Dict, Union
+from typing import Optional, Dict, Union, List
 
 from CPAW import Client
-from CPAW.models import File, Hardware, Wallet
-from CPAW.utils import *
+from CPAW.models import File, Hardware, Wallet, Miner, Service
+from CPAW.utils import convert_services
 
 
 class Device:
