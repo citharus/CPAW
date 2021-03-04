@@ -60,6 +60,24 @@ class Device:
         """
         return self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)
 
+    @property
+    def name(self) -> str:
+        """
+        Return the name of the device.
+        :return: The name of the device
+        :rtype: str
+        """
+        return self.name
+
+    @name.setter
+    def name(self, name: str) -> None:
+        """
+        Change the device name.
+        :param str name: The new name of the device
+        """
+        self.name = self.client.microservice("device", ["device", "change_name"],
+                                             device_uuid=self.uuid, name=name)["name"]
+
     def ping(self) -> bool:
         """
         Return the power state of the device, True if the device is on and False if it's not.
@@ -76,15 +94,6 @@ class Device:
         """
         self.powered_on = self.client.microservice("device", ["device", "power"], device_uuid=self.uuid)["powered_on"]
         return self.powered_on
-
-    def change_name(self, name: str) -> str:
-        """
-        Change the device name.
-        :param str name: The new name of the device
-        :return: The changed name of the device
-        :rtype: str
-        """
-        return self.client.microservice("device", ["device", "change_name"], device_uuid=self.uuid, name=name)["name"]
 
     def delete(self) -> bool:
         """
