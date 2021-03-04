@@ -19,6 +19,39 @@ class Device:
         self.powered_on: bool = bool(data["powered_on"])
         self.starter_device: bool = bool(data["starter_device"])
 
+    @property
+    def files(self, parent_dir_uuid: Optional[str] = None) -> List[File]:
+        """
+        List all files in a directory of the device. The default directory is the root one.
+        :param str parent_dir_uuid: The uuid of the directory the files should be listed (Default: Root directory)
+        :return: List of Files in the directory
+        :rtype: list[File]
+        """
+        response: list = self.client.microservice("device", ["file", "all"], device_uuid=self.uuid,
+                                                  parent_dir_uuid=parent_dir_uuid)["files"]
+        return [File(self.client, file) for file in response]
+
+    @property
+    def hardware(self) -> List[Hardware]:
+        """
+        List all hardware parts of the device.
+        :return: List of hardware parts
+        :rtype: list[Hardware]
+        """
+        response: list = self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)["hardware"]
+        return [Hardware(self.client, hardware) for hardware in response]
+
+    @property
+    def services(self) -> List[Service]:
+        """
+        Return a list with services on the device.
+        :return: A list with services
+        :rtype: list[Service]
+        """
+        response: dict = self.client.microservice("service", ["list"], device_uuid=self.uuid)["services"]
+        return convert_services(self.client, response)
+
+    @property
     def info(self) -> Dict[str, Union[str, bool, List[Dict[str, str]]]]:
         """
         Return information about the device and it's hardware in a dictionary.
@@ -92,35 +125,6 @@ class Device:
         :rtype: bool
         """
         return self.client.microservice("service", ["part_owner"], device_uuid=self.uuid)["ok"]
-
-    def files(self, parent_dir_uuid: Optional[str] = None) -> List[File]:
-        """
-        List all files in a directory of the device. The default directory is the root one.
-        :param str parent_dir_uuid: The uuid of the directory the files should be listed (Default: Root directory)
-        :return: List of Files in the directory
-        :rtype: list[File]
-        """
-        response: list = self.client.microservice("device", ["file", "all"], device_uuid=self.uuid,
-                                                  parent_dir_uuid=parent_dir_uuid)["files"]
-        return [File(self.client, file) for file in response]
-
-    def hardware(self) -> List[Hardware]:
-        """
-        List all hardware parts of the device.
-        :return: List of hardware parts
-        :rtype: list[Hardware]
-        """
-        response: list = self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)["hardware"]
-        return [Hardware(self.client, hardware) for hardware in response]
-
-    def services(self) -> List[Service]:
-        """
-        Return a list with services on the device.
-        :return: A list with services
-        :rtype: list[Service]
-        """
-        response: dict = self.client.microservice("service", ["list"], device_uuid=self.uuid)["services"]
-        return convert_services(self.client, response)
 
     def usage(self) -> Dict[str, Union[str, float]]:
         """
