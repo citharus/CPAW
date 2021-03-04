@@ -38,9 +38,9 @@ class User:
         """Delete all devices of the user."""
         self.client.microservice("device", ["delete_user"], user_uuid=self.uuid)
 
-    def delete_wallets(self) -> bool:
+    def delete_wallets(self) -> None:
         """Delete all wallets of the user."""
-        return self.client.microservice("currency", ["delete_user"], user_uuid=self.uuid)["ok"]
+        self.client.microservice("currency", ["delete_user"], user_uuid=self.uuid)
 
     def spot(self) -> Device:
         """
