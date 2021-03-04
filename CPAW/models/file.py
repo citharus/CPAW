@@ -18,6 +18,7 @@ class File:
         self.parent_dir_uuid: str = data["parent_dir_uuid"]
         self.is_directory: bool = bool(data["id_directory"])
 
+    @property
     def info(self) -> Dict[str, Union[str, bool]]:
         """
         Return information about the file.
