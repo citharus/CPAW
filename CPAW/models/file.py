@@ -27,18 +27,6 @@ class File:
         """
         return self.client.microservice("device", ["file", "info"], device_uuid=self.device, file_uuid=self.uuid)
 
-    def move(self, new_parent_dir_uuid: str, new_filename: str) -> Tuple[str, str]:
-        """
-        Move or rename a file to another location.
-        :param str new_parent_dir_uuid: The new directory of the file
-        :param str new_filename: The new file name
-        """
-        response: dict = self.client.microservice("device", ["file", "move"], new_parent_dir_uuid=new_parent_dir_uuid,
-                                                  new_filename=new_filename)
-        self.filename = response["new_filename"]
-        self.parent_dir_uuid = response["new_parent_dir_uuid"]
-        return self.filename, self.parent_dir_uuid
-
     @property
     def content(self) -> str:
         """
@@ -56,6 +44,18 @@ class File:
         """
         self.content = self.client.microservice("device", ["file", "update"], device_uuid=self.device, content=content,
                                                 file_uuid=self.uuid)["content"]
+
+    def move(self, new_parent_dir_uuid: str, new_filename: str) -> Tuple[str, str]:
+        """
+        Move or rename a file to another location.
+        :param str new_parent_dir_uuid: The new directory of the file
+        :param str new_filename: The new file name
+        """
+        response: dict = self.client.microservice("device", ["file", "move"], new_parent_dir_uuid=new_parent_dir_uuid,
+                                                  new_filename=new_filename)
+        self.filename = response["new_filename"]
+        self.parent_dir_uuid = response["new_parent_dir_uuid"]
+        return self.filename, self.parent_dir_uuid
 
     def delete(self) -> bool:
         """
