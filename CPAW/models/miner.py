@@ -30,6 +30,7 @@ class Miner(Service):
         """
         self.power = self.client.microservice("service", ["miner", "power"], service_uuid=self.uuid, power=power)
 
+    @property
     def info(self) -> dict:
         """
         Return information about the miner in a dictionary.
