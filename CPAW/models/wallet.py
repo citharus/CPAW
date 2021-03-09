@@ -9,6 +9,15 @@ class Wallet:
         self.key: Optional[str] = data["key"]
         self.owner: Optional[str] = data["user_uuid"]
 
+    def get_owner(self) -> str:
+        """
+        Return the owner of the wallet
+        :return: The owner of the wallet
+        :rtype: str
+        """
+        self.owner = self.client.microservice("currency", ["owner"], source_uuid=self.uuid)["owner"]
+        return self.owner
+
     def amount(self, key: str) -> float:
         """
         Return the current amount of morphcoins in the wallet.
