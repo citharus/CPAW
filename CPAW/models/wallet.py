@@ -36,3 +36,16 @@ class Wallet:
         if key:
             return self.client.microservice("currency", ["delete"], source_uuid=self.uuid, key=key)["ok"]
         return self.client.microservice("currency", ["reset"], source_uuid=self.uuid)["ok"]
+
+    def send(self, key: str, wallet: "Wallet", amount: float, usage: Optional[str] = None) -> bool:
+        """
+        Send the specified amount of coins to the specified wallet.
+        :param str key: The secure key of the wallet
+        :param Wallet wallet: The wallet which receives the coins
+        :param float amount: The amount of coins to send
+        :param str usage: The description of the transaction
+        :return: True if the transaction was successful
+        :rtype: bool
+        """
+        return self.client.microservice("currency", ["send"], source_uuid=self.uuid, key=key, send_amount=amount,
+                                        destionation_uuid=wallet.uuid, usage=usage)["ok"]
