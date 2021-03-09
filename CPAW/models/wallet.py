@@ -12,7 +12,7 @@ class Wallet:
     def amount(self, key: str) -> float:
         """
         Return the current amount of morphcoins in the wallet.
-        :param key: The secure key of the wallet
+        :param str key: The secure key of the wallet
         :return: The current amount of morphcoins
         :rtype: float
         """
