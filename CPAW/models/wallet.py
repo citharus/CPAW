@@ -34,7 +34,7 @@ class Wallet:
         :rtype: bool
         """
         if key:
-            return self.client.microservice("currency", ["delete"], source_uuid=self.uuid, key=key)["ok"]
+            return self.client.microservice("currency", ["delete"], source_uuid=self.uuid, key=key or self.key)["ok"]
         return self.client.microservice("currency", ["reset"], source_uuid=self.uuid)["ok"]
 
     def send(self, wallet: "Wallet", amount: float, usage: Optional[str] = None, key: Optional[str] = None) -> bool:
