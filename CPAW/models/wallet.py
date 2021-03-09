@@ -10,6 +10,12 @@ class Wallet:
         self.owner: Optional[str] = data["user_uuid"]
 
     def amount(self, key: str) -> float:
+        """
+        Return the current amount of morphcoins in the wallet.
+        :param key: The secure key of the wallet
+        :return: The current amount of morphcoins
+        :rtype: float
+        """
         return self.client.microservice("currency", ["get"], source_uuid=self.uuid, key=key)["amount"]
 
     def exists(self) -> bool:
@@ -23,6 +29,7 @@ class Wallet:
     def delete(self, key: Optional[str] = None) -> bool:
         """
         Delete the wallet. If the wallet is not yours the secret key is required.
+        :param str key: The secure key of the wallet
         :return: True if wallet was deleted
         :rtype: bool
         """
