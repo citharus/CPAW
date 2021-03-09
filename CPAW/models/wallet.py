@@ -11,3 +11,13 @@ class Wallet:
 
     def amount(self, key: str) -> float:
         return self.client.microservice("currency", ["get"], source_uuid=self.uuid, key=key)["amount"]
+
+    def delete(self, key: Optional[str] = None) -> bool:
+        """
+        Delete the wallet. If the wallet is not yours the secret key is required.
+        :return: True if wallet was deleted
+        :rtype: bool
+        """
+        if key:
+            return self.client.microservice("currency", ["delete"], source_uuid=self.uuid, key=key)["ok"]
+        return self.client.microservice("currency", ["reset"], source_uuid=self.uuid)["ok"]
