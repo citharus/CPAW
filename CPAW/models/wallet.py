@@ -7,15 +7,6 @@ class Wallet:
         self.client: Client = client
         self._data: dict = data
 
-    def info(self, key: Optional[str]) -> Dict[str, Union[str, float]]:
-        """
-        Return information about the wallet in a dictionary.
-        :param key:
-        :return: Dictionary containing information
-        :rtype: dict
-        """
-        return self.client.microservice("currency", ["get"], source_uuid=self.uuid, key=key or self.key)
-
     @property
     def uuid(self) -> str:
         """
@@ -43,6 +34,15 @@ class Wallet:
         :rtype: str
         """
         return self.client.microservice("currency", ["owner"], source_uuid=self.uuid)["owner"]
+
+    def info(self, key: Optional[str]) -> Dict[str, Union[str, float]]:
+        """
+        Return information about the wallet in a dictionary.
+        :param key:
+        :return: Dictionary containing information
+        :rtype: dict
+        """
+        return self.client.microservice("currency", ["get"], source_uuid=self.uuid, key=key or self.key)
 
     def amount(self, key: str) -> float:
         """
