@@ -5,9 +5,7 @@ from CPAW import Client
 class Wallet:
     def __init__(self, client: Client, data: dict) -> None:
         self.client: Client = client
-        self.uuid: str = data["source_uuid"]
-        self.key: Optional[str] = data["key"]
-        self.owner: Optional[str] = data["user_uuid"]
+        self._data: dict = data
 
     def info(self, key: Optional[str]) -> Dict[str, Union[str, float]]:
         """
@@ -18,14 +16,33 @@ class Wallet:
         """
         return self.client.microservice("currency", ["get"], source_uuid=self.uuid, key=key or self.key)
 
-    def get_owner(self) -> str:
+    @property
+    def uuid(self) -> str:
         """
-        Return the owner of the wallet
+        Return the uuid of the wallet.
+        :return: The uuid
+        :rtype: str
+        """
+        return self._data["source_uuid"]
+
+    @property
+    def key(self) -> str:
+        """
+        Return the secure key of the wallet.
+        :return: The key of the wallet
+        :rtype: str
+        """
+        if "key" in self._data:
+            return self._data["key"]
+
+    @property
+    def owner(self) -> str:
+        """
+        Return the owner of the wallet.
         :return: The owner of the wallet
         :rtype: str
         """
-        self.owner = self.client.microservice("currency", ["owner"], source_uuid=self.uuid)["owner"]
-        return self.owner
+        return self.client.microservice("currency", ["owner"], source_uuid=self.uuid)["owner"]
 
     def amount(self, key: str) -> float:
         """
