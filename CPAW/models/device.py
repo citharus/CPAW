@@ -15,8 +15,16 @@ class Device:
         self.client: Client = client
         self.uuid: str = data["uuid"]
         self.name: str = data["name"]
-        self.powered_on: bool = bool(data["powered_on"])
         self.starter_device: bool = bool(data["starter_device"])
+
+    @property
+    def power(self) -> bool:
+        """
+        Return the power state of the device.
+        :return: The power state
+        :rtype: bool
+        """
+        return self.client.microservice("device", ["device", "ping"], device_uuid=self.uuid)["online"]
 
     @property
     def owner(self) -> str:
@@ -86,22 +94,13 @@ class Device:
         self.name = self.client.microservice("device", ["device", "change_name"],
                                              device_uuid=self.uuid, name=name)["name"]
 
-    def ping(self) -> bool:
+    def toggle(self) -> bool:
         """
-        Return the power state of the device, True if the device is on and False if it's not.
-        :return: Power state
-        :rtype: bool
-        """
-        return self.client.microservice("device", ["device", "ping"], device_uuid=self.uuid)["online"]
-
-    def power(self) -> bool:
-        """
-        Turn the device on or off.
+        Toggle the device on or off.
         :return: Power state of the device
         :rtype: bool
         """
-        self.powered_on = self.client.microservice("device", ["device", "power"], device_uuid=self.uuid)["powered_on"]
-        return self.powered_on
+        return self.client.microservice("device", ["device", "power"], device_uuid=self.uuid)["powered_on"]
 
     def delete(self) -> bool:
         """
