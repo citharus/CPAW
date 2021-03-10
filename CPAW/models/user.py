@@ -10,9 +10,25 @@ class User:
         :param Client client: The client used by the user
         """
         self.client: Client = client
-        data: dict = client.info()
-        self.name: str = data["name"]
-        self.uuid: str = data["uuid"]
+        self._data: dict = client.info()
+
+    @property
+    def name(self) -> str:
+        """
+        Return the name of the user.
+        :return: The name
+        :rtype: str
+        """
+        return self._data["name"]
+
+    @property
+    def uuid(self) -> str:
+        """
+        Return the uuid of the user.
+        :return: The uuid
+        :rtype: str
+        """
+        return self._data["uuid"]
 
     @property
     def part_owner(self) -> List[Service]:
