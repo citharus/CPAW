@@ -1,5 +1,5 @@
 from CPAW import Client
-from CPAW.models import Device
+from CPAW.models import Device, Wallet
 from CPAW.utils import *
 
 
@@ -33,6 +33,16 @@ class User:
         """
         response: list = self.client.microservice("device", ["device", "all"])["devices"]
         return [Device(self.client, device) for device in response]
+
+    @property
+    def wallets(self) -> List[Wallet]:
+        """
+        List all wallets of the user.
+        :return: List of wallets
+        :rtype: list[Wallet]
+        """
+        response: list = self.client.microservice("currency", ["list"])["wallets"]
+        return [Wallet(self.client, {"source_uuid": wallet}) for wallet in response]
 
     def delete_devices(self) -> bool:
         """
