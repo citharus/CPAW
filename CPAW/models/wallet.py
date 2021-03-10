@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Dict, Union
 from CPAW import Client
 
 
@@ -8,6 +8,15 @@ class Wallet:
         self.uuid: str = data["source_uuid"]
         self.key: Optional[str] = data["key"]
         self.owner: Optional[str] = data["user_uuid"]
+
+    def info(self, key: Optional[str]) -> Dict[str, Union[str, float]]:
+        """
+        Return information about the wallet in a dictionary.
+        :param key:
+        :return: Dictionary containing information
+        :rtype: dict
+        """
+        return self.client.microservice("currency", ["get"], source_uuid=self.uuid, key=key or self.key)
 
     def get_owner(self) -> str:
         """
