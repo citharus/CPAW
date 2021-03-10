@@ -15,9 +15,17 @@ class Device:
         self.client: Client = client
         self.uuid: str = data["uuid"]
         self.name: str = data["name"]
-        self.owner: str = data["owner"]
         self.powered_on: bool = bool(data["powered_on"])
         self.starter_device: bool = bool(data["starter_device"])
+
+    @property
+    def owner(self) -> str:
+        """
+        Return the owner of the device.
+        :return: The owner
+        :rtype: str
+        """
+        return self.client.microservice("device", ["owner"], device_uuid=self.uuid)["owner"]
 
     @property
     def files(self, parent_dir_uuid: Optional[str] = None) -> List[File]:
