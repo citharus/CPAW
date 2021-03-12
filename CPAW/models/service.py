@@ -12,12 +12,52 @@ class Service:
         :param dict data: The data of the service
         """
         self.client: Client = client
-        self.uuid: str = data["uuid"]
-        self.name: str = data["name"]
-        self.owner: str = data["owner"]
-        self.running_port: int = int(data["running_port"])
-        self.device: str = data["device"]
-        self.speed: int = int(data["speed"])
+        self._data: dict = data
+
+    @property
+    def uuid(self) -> str:
+        """
+        Return the uuid of the service.
+        :return: The uuid of the service.
+        :rtype: str
+        """
+        return self._data["uuid"]
+
+    @property
+    def name(self) -> str:
+        """
+        Return the name of the service.
+        :return: The name of the service
+        :rtype: str
+        """
+        return self._data["name"]
+
+    @property
+    def owner(self) -> str:
+        """
+        Return the owner of the service.
+        :return: The owner of the service
+        :rtype: str
+        """
+        return self._data["owner"]
+
+    @property
+    def port(self) -> int:
+        """
+        Return the port which the service is bind to.
+        :return: The port of the service
+        :rtype: int
+        """
+        return int(self._data["running_port"])
+
+    @property
+    def device(self) -> str:
+        """
+        Return the device uuid of the service.
+        :return: The device uuid
+        :rtype: str
+        """
+        return self._data["device"]
 
     @property
     def info(self) -> Dict[str, Union[str, int]]:
