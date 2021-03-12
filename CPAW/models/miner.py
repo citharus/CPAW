@@ -10,6 +10,7 @@ class Miner(Service):
         :param dict data: The data of the Miner service
         """
         super(Miner, self).__init__(client, data)
+        self._data: dict = data
 
     @property
     def power(self) -> float:
