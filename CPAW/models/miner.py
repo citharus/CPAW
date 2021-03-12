@@ -10,7 +10,6 @@ class Miner(Service):
         :param dict data: The data of the Miner service
         """
         super(Miner, self).__init__(client, data)
-        self.wallet: str = data["wallet"]
 
     @property
     def power(self) -> float:
@@ -28,6 +27,15 @@ class Miner(Service):
         :param float power: The new computing power
         """
         self.client.microservice("service", ["miner", "power"], service_uuid=self.uuid, power=power)
+
+    @property
+    def wallet(self) -> str:
+        """
+        Return the current wallet the miner is connected to.
+        :return: The wallet uuid
+        :rtype: str
+        """
+        return self.client.microservice("service", ["miner", "get"], service_uuid=self.uuid)["wallet"]
 
     @property
     def info(self) -> dict:
