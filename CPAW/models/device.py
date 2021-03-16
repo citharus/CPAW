@@ -67,7 +67,6 @@ class Device:
         response: dict = self.client.microservice("service", ["list"], device_uuid=self.uuid)["services"]
         return convert_services(self.client, response)
 
-    @property
     def info(self) -> Dict[str, Union[str, bool, List[Dict[str, str]]]]:
         """
         Return information about the device and it's hardware in a dictionary.
