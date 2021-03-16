@@ -6,15 +6,7 @@ class Wallet:
     def __init__(self, client: Client, data: dict) -> None:
         self.client: Client = client
         self._data: dict = data
-
-    @property
-    def uuid(self) -> str:
-        """
-        Return the uuid of the wallet.
-        :return: The uuid
-        :rtype: str
-        """
-        return self._data["source_uuid"]
+        self.uuid: str = data["source_uuid"]
 
     @property
     def key(self) -> str:
