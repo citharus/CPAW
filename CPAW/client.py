@@ -6,7 +6,7 @@ from uuid import uuid4
 
 from websocket import WebSocket, create_connection
 
-from .exceptions import (
+from CPAW.exceptions import (
     InvalidServerResponseException,
     UnknownMicroserviceException,
     MicroserviceException,
