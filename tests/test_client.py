@@ -12,7 +12,6 @@ class TestClient(Test):
 
     def test_logout(self) -> None:
         self.client.logout()
-        print(self.client.logged_in)
         self.assertFalse(self.client.logged_in)
         self.assertIsNone(self.client.websocket)
         self.client.login()
