@@ -1,6 +1,7 @@
+from typing import List
+
 from CPAW import Client
-from CPAW.models import Device, Wallet
-from CPAW.utils import *
+from CPAW.utils import convert_services
 
 
 class User:
@@ -15,7 +16,7 @@ class User:
         self.uuid: str = self._data["uuid"]
 
     @property
-    def part_owner(self) -> List[Service]:
+    def part_owner(self) -> List["Service"]:
         """
         Return a list with services the user has hacked.
         :return: A list with services.
@@ -25,22 +26,24 @@ class User:
         return convert_services(self.client, response)
 
     @property
-    def devices(self) -> List[Device]:
+    def devices(self) -> List["Device"]:
         """
         List all devices of the user.
         :return: List of devices
         :rtype: list[Device]
         """
+        from CPAW.models import Device
         response: list = self.client.microservice("device", ["device", "all"])["devices"]
         return [Device(self.client, device) for device in response]
 
     @property
-    def wallets(self) -> List[Wallet]:
+    def wallets(self) -> List["Wallet"]:
         """
         List all wallets of the user.
         :return: List of wallets
         :rtype: list[Wallet]
         """
+        from CPAW.models import Wallet
         response: list = self.client.microservice("currency", ["list"])["wallets"]
         return [Wallet(self.client, {"source_uuid": wallet}) for wallet in response]
 
@@ -60,16 +63,17 @@ class User:
         """
         return self.client.microservice("currency", ["delete_user"], user_uuid=self.uuid)["ok"]
 
-    def spot(self) -> Device:
+    def spot(self) -> "Device":
         """
         Find a random device.
         :return: A random device
         :rtype: Device
         """
+        from CPAW.models import Device
         return Device(self.client, self.client.microservice("device", ["spot"]))
 
     def create_device(self, gpu: List[str], cpu: List[str], mainboard: str, ram: List[str], disk: List[str],
-                      processorCooler: List[str], powerPack: str, case: str) -> Device:
+                      processorCooler: List[str], powerPack: str, case: str) -> "Device":
         """
         Creates a new device from provided hardware parts.
         :param list[str] gpu: The names of the graphics processing units
@@ -83,17 +87,19 @@ class User:
         :return: A new device
         :rtype: Device
         """
+        from CPAW.models import Device
         response: dict = self.client.microservice("device", ["device", "create"], gpu=gpu, cpu=cpu, mainboard=mainboard,
                                                   ram=ram, disk=disk, processorCooler=processorCooler, case=case,
                                                   powerPack=powerPack)
         return Device(self.client, response)
 
-    def starter_device(self) -> Device:
+    def starter_device(self) -> "Device":
         """
         Creates the starter device for the user.
         :return: The starter device
         :rtype: Device
         """
+        from CPAW.models import Device
         return Device(self.client, self.client.microservice("device", ["device", "starter_device"]))
 
     def build_compatibility(self, gpu: List[str], cpu: List[str], mainboard: str, ram: List[str], disk: List[str],

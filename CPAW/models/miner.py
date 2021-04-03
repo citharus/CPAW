@@ -1,5 +1,5 @@
 from CPAW import Client
-from CPAW.models import Service
+from CPAW.models.service import Service
 
 
 class Miner(Service):

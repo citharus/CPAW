@@ -1,7 +1,6 @@
-from typing import Optional, Dict, Union, List
+from typing import Optional, List, Dict, Union
 
 from CPAW import Client
-from CPAW.models import File, Hardware, Wallet, Miner, Service
 from CPAW.utils import convert_services
 
 
@@ -36,29 +35,31 @@ class Device:
         return self.client.microservice("device", ["owner"], device_uuid=self.uuid)["owner"]
 
     @property
-    def files(self, parent_dir_uuid: Optional[str] = None) -> List[File]:
+    def files(self, parent_dir_uuid: Optional[str] = None) -> List["File"]:
         """
         List all files in a directory of the device. The default directory is the root one.
         :param str parent_dir_uuid: The uuid of the directory the files should be listed (Default: Root directory)
         :return: List of Files in the directory
         :rtype: list[File]
         """
+        from CPAW.models import File
         response: list = self.client.microservice("device", ["file", "all"], device_uuid=self.uuid,
                                                   parent_dir_uuid=parent_dir_uuid)["files"]
         return [File(self.client, file) for file in response]
 
     @property
-    def hardware(self) -> List[Hardware]:
+    def hardware(self) -> List["Hardware"]:
         """
         List all hardware parts of the device.
         :return: List of hardware parts
         :rtype: list[Hardware]
         """
+        from CPAW.models import Hardware
         response: list = self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)["hardware"]
         return [Hardware(self.client, hardware) for hardware in response]
 
     @property
-    def services(self) -> List[Service]:
+    def services(self) -> List["Service"]:
         """
         Return a list with services on the device.
         :return: A list with services
@@ -150,7 +151,7 @@ class Device:
         return self.client.microservice("device", ["hardware", "resource"], device_uuid=self.uuid)
 
     def create_file(self, filename: str, content: str, parent_dir_uuid: str = None,
-                    is_directory: bool = False) -> File:
+                    is_directory: bool = False) -> "File":
         """
         Creates a new file of directory on the device. By default the parent directory is root and it's a file.
         :param str filename: The file name
@@ -160,12 +161,13 @@ class Device:
         :return: A new file or directory
         :rtype: File
         """
+        from CPAW.models import File
         response: dict = self.client.microservice("device", ["file", "create"], device_uuid=self.uuid, content=content,
                                                   filename=filename, parent_dir_uuid=parent_dir_uuid,
                                                   is_directory=is_directory)
         return File(self.client, response)
 
-    def create_service(self, name: str) -> Service:
+    def create_service(self, name: str) -> "Service":
         """
         Installs a new service on the device.
         :param str name: The name of the service (Available services: ssh, telnet, portscan, bruteforce)
@@ -175,20 +177,22 @@ class Device:
         response: dict = self.client.microservice("service", ["create"], device_uuid=self.uuid, name=name)
         return convert_services(self.client, response)[0]
 
-    def create_miner(self) -> Miner:
+    def create_miner(self) -> "Miner":
         """
         Installs a new miner on the device.
         :return: The newly installed miner
         :rtype: Miner
         """
+        from CPAW.models import Miner
         return Miner(self.client, self.client.microservice("service", ["create"], device_uuid=self.uuid, name="miner"))
 
-    def create_wallet(self) -> Wallet:
+    def create_wallet(self) -> "Wallet":
         """
         Create a new wallet on the device.
         :return: The new wallet
         :rtype: Wallet
         """
+        from CPAW.models import Wallet
         return Wallet(self.client, self.client.microservice("currency", ["create"]))
 
     def stop_services(self) -> bool:

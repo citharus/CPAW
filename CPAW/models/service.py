@@ -1,7 +1,7 @@
-from typing import Dict, Union
+from typing import Dict, Union, List
 
 from CPAW import Client
-from CPAW.utils import *
+from CPAW.utils import convert_services
 
 
 class Service:
