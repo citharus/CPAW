@@ -76,23 +76,16 @@ class Device:
         """
         return self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)
 
-    @property
-    def name(self) -> str:
-        """
-        Return the name of the device.
-        :return: The name of the device
-        :rtype: str
-        """
-        return self.name
-
-    @name.setter
-    def name(self, name: str) -> None:
+    def change_name(self, name: str) -> str:
         """
         Change the device name.
         :param str name: The new name of the device
+        :return: The new name
+        :rtype: str
         """
         self.name = self.client.microservice("device", ["device", "change_name"],
                                              device_uuid=self.uuid, name=name)["name"]
+        return self.name
 
     def toggle(self) -> bool:
         """
