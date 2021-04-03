@@ -62,7 +62,7 @@ class Client:
         if not self.logged_in:
             raise LoggedOutException
 
-        response: dict = self.request({"ms": microservice, "endpoint": endpoint, data: data, "tag": str(uuid4())})
+        response: dict = self.request({"ms": microservice, "endpoint": endpoint, "data": data, "tag": str(uuid4())})
 
         if "error" in response:
             error: str = response["error"]
