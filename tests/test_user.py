@@ -48,3 +48,10 @@ class TestUser(Test):
 
         self.assertTrue(mocked_method.called)
         self.assertEqual(mocked_method.return_value, response)
+
+    @patch("CPAW.models.user.User.build_compatibility")
+    def test_build_compatibility(self, mocked_method) -> None:
+        response: bool = self.user.build_compatibility([""], [""], "", [""], [""], [""], "", "")
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(mocked_method.return_value, response)
