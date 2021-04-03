@@ -1,7 +1,7 @@
-from .device import Device
-from .file import File
-from .hardware import Hardware
-from .miner import Miner
-from .service import Service, BruteforceService, PortscanService, SSHService, TelnetService
-from .user import User
-from .wallet import Wallet
+from CPAW.models.device import Device
+from CPAW.models.file import File
+from CPAW.models.hardware import Hardware
+from CPAW.models.miner import Miner
+from CPAW.models.service import Service, BruteforceService, PortscanService, SSHService, TelnetService
+from CPAW.models.user import User
+from CPAW.models.wallet import Wallet
