@@ -15,6 +15,9 @@ class User:
         self.name: str = self._data["name"]
         self.uuid: str = self._data["uuid"]
 
+    def __repr__(self) -> str:
+        return f"User({self.client})"
+
     @property
     def part_owner(self) -> List["Service"]:
         """
