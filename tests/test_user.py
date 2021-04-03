@@ -47,6 +47,10 @@ class TestUser(Test):
         response: Device = self.user.create_device([""], [""], "", [""], [""], [""], "", "")
 
         self.assertTrue(mocked_method.called)
+        self.assertEqual(
+            mocked_method.call_args_list,
+            [call([""], [""], "", [""], [""], [""], "", "")]
+        )
         self.assertEqual(mocked_method.return_value, response)
 
     @patch("CPAW.models.user.User.build_compatibility")
@@ -54,4 +58,8 @@ class TestUser(Test):
         response: bool = self.user.build_compatibility([""], [""], "", [""], [""], [""], "", "")
 
         self.assertTrue(mocked_method.called)
+        self.assertEqual(
+            mocked_method.call_args_list,
+            [call([""], [""], "", [""], [""], [""], "", "")]
+        )
         self.assertEqual(mocked_method.return_value, response)
