@@ -41,3 +41,10 @@ class TestUser(Test):
 
         self.assertTrue(mocked_method.called)
         self.assertEqual(mocked_method.return_value, response)
+
+    @patch("CPAW.models.user.User.create_device")
+    def test_create_device(self, mocked_method) -> None:
+        response: Device = self.user.create_device([""], [""], "", [""], [""], [""], "", "")
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(mocked_method.return_value, response)
