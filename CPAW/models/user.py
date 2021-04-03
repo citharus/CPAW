@@ -117,8 +117,8 @@ class User:
         :param list[str] processorCooler: The names of the cpu coolers
         :param str powerPack: The name of the power pack
         :param str case: The name of the case
-        :return: A new device
-        :rtype: Device
+        :return: True if the components are compatible
+        :rtype: bool
         """
         return self.client.microservice("device", ["hardware", "build"], gpu=gpu, cpu=cpu, mainboard=mainboard,
                                         ram=ram, disk=disk, processorCooler=processorCooler, case=case,
