@@ -1,3 +1,4 @@
+from unittest.mock import patch, call
 from CPAW.models import User, Service, Device, Wallet
 from tests.test import Test
 
@@ -26,3 +27,10 @@ class TestUser(Test):
         response: list = self.user.wallets
 
         self.assertIsInstance(response[0], Wallet)
+
+    @patch("CPAW.models.user.User.spot")
+    def test_spot(self, mocked_method) -> None:
+        response: Device = self.user.spot()
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(mocked_method.return_value, response)
