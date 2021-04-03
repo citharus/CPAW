@@ -6,6 +6,7 @@ from CPAW.utils import convert_services
 
 class Device:
     """The representation of a device"""
+
     def __init__(self, client: Client, data: dict) -> None:
         """
         :param Client client: The client used by the user
@@ -15,6 +16,10 @@ class Device:
         self.uuid: str = data["uuid"]
         self.name: str = data["name"]
         self.starter_device: bool = bool(data["starter_device"])
+
+    def __repr__(self) -> str:
+        return f"Device({self.client}, {{'uuid': '{self.uuid}', 'name': '{self.name}', " \
+               f"'starter_device': {self.starter_device}}})"
 
     @property
     def power(self) -> bool:
