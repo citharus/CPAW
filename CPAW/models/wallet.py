@@ -8,6 +8,9 @@ class Wallet:
         self._data: dict = data
         self.uuid: str = data["source_uuid"]
 
+    def __repr__(self) -> str:
+        return f"Wallet({self.client}, {self._data})"
+
     @property
     def key(self) -> str:
         """
