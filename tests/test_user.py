@@ -36,7 +36,7 @@ class TestUser(Test):
         self.assertEqual(mocked_method.return_value, response)
 
     @patch("CPAW.models.user.User.starter_device")
-    def test_device(self, mocked_method) -> None:
+    def test_starter_device(self, mocked_method) -> None:
         response: Device = self.user.starter_device()
 
         self.assertTrue(mocked_method.called)
