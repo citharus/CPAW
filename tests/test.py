@@ -12,6 +12,7 @@ class Test(unittest.TestCase):
     SERVER: str = getenv("SERVER")
     PASSWORD: str = getenv("PASSWORD")
     USERNAME: str = getenv("USERNAME")
+    UUID: str = getenv("UUID")
 
     @classmethod
     def setUpClass(cls) -> None:
