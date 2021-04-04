@@ -10,8 +10,8 @@ class TestUser(Test):
         self.user = User(self.client)
 
     def test_attributes(self) -> None:
-        self.assertEqual(self.user.name, "citharus")
-        self.assertRegex(self.user.uuid, r"^[\w\d]{8}(-[\w\d]{4}){3}-[\w\d]{12}$")
+        self.assertEqual(self.user.name, self.USERNAME)
+        self.assertRegex(self.user.uuid, self.UUID)
 
     def test_part_owner(self) -> None:
         response: list = self.user.part_owner
