@@ -23,7 +23,6 @@ class TestUser(Test):
         response: list = self.user.devices
 
         self.assertIsInstance(response[0], Device)
-        print(response)
 
     def test_wallets(self) -> None:
         response: list = self.user.wallets
