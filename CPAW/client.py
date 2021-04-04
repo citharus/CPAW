@@ -79,7 +79,7 @@ class Client:
             error: str = data["error"]
             for exception in MicroserviceException.__subclasses__():
                 if re.fullmatch(exception.error, error):
-                    raise Exception(error, data)
+                    raise exception(data)
             raise InvalidServerResponseException(response)
         return data
 
