@@ -1,4 +1,5 @@
 from unittest.mock import patch, call
+
 from CPAW.models import User, Service, Device, Wallet
 from tests.test import Test
 
@@ -22,6 +23,7 @@ class TestUser(Test):
         response: list = self.user.devices
 
         self.assertIsInstance(response[0], Device)
+        print(response)
 
     def test_wallets(self) -> None:
         response: list = self.user.wallets
