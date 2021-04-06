@@ -11,6 +11,7 @@ class File:
         :param dict data: The data of the file
         """
         self.client: Client = client
+        self._data: dict = data
         self.uuid: str = data["uuid"]
         self.device: str = data["device"]
         self.filename: str = data["filename"]
