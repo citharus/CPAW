@@ -9,6 +9,7 @@ class Hardware:
         :param dict data: The data of the hardware part
         """
         self.client: Client = client
+        self._data: dict = data
         self.uuid: str = data["uuid"]
         self.device: str = data["device_uuid"]
         self.name: str = data["hardware_element"]
