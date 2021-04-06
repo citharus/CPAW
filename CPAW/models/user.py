@@ -1,6 +1,7 @@
 from typing import List
 
 from CPAW import Client
+from CPAW.models import *
 from CPAW.utils import convert_services
 
 
