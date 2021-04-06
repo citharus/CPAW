@@ -1,2 +1,3 @@
-from .client import Client
-from .exceptions import *
+from CPAW.client import Client
+from CPAW import exceptions
+from CPAW import models
