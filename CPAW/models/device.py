@@ -14,6 +14,7 @@ class Device:
         :param dict data: The data of the device
         """
         self.client: Client = client
+        self._data: dict = data
         self.uuid: str = data["uuid"]
         self.name: str = data["name"]
         self.starter_device: bool = bool(data["starter_device"])
