@@ -94,8 +94,8 @@ class Device(BaseModel):
         Update the device name.
         :param str name: The new name of the device
         """
-        self.name = self.client.microservice("device", ["device", "change_name"],
-                                             device_uuid=self.uuid, name=name)["name"]
+        self._data["name"] = self.client.microservice("device", ["device", "change_name"],
+                                                      device_uuid=self.uuid, name=name)
 
     def info(self) -> Dict[str, Union[str, bool, List[Dict[str, str]]]]:
         """
