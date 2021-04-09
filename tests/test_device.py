@@ -64,3 +64,10 @@ class TestDevice(Test):
 
         self.assertTrue(mocked_method.called)
         self.assertEqual(mocked_method.return_value, response)
+
+    @patch("CPAW.models.device.Device.usage")
+    def test_usage(self, mocked_method) -> None:
+        response: dict = self.device.usage()
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(mocked_method.return_value, response)
