@@ -1,4 +1,4 @@
-from CPAW.models import Device, File, Hardware, Service
+from CPAW.models import Device, File, Hardware, Service, Wallet
 from tests.test import Test, getenv
 from unittest.mock import patch, call
 
@@ -92,4 +92,11 @@ class TestDevice(Test):
             mocked_method.call_args_list,
             [call("ssh")]
         )
+        self.assertEqual(mocked_method.return_value, response)
+
+    @patch("CPAW.models.device.Device.create_wallet")
+    def test_create_wallet(self, mocked_method) -> None:
+        response: Wallet = self.device.create_wallet()
+
+        self.assertTrue(mocked_method.called)
         self.assertEqual(mocked_method.return_value, response)
