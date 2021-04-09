@@ -204,3 +204,6 @@ class TelnetService(Service):
         :param dict data: The data of the telnet service
         """
         super(TelnetService, self).__init__(client, data)
+
+    def __repr__(self):
+        return f"TelnetService({self.client}, {self._data})"
