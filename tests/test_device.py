@@ -1,5 +1,6 @@
 from CPAW.models import Device, File, Hardware, Service
 from tests.test import Test, getenv
+from unittest.mock import patch, call
 
 
 class TestDevice(Test):
@@ -28,3 +29,10 @@ class TestDevice(Test):
 
     def test_name(self) -> None:
         self.device.name = "Cuauhtli"
+
+    @patch("CPAW.models.device.Device.info")
+    def test_info(self, mocked_method) -> None:
+        response: dict = self.device.info()
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(mocked_method.return_value, response)
