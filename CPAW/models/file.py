@@ -1,23 +1,17 @@
 from typing import Dict, Union
 
 from CPAW import Client
+from CPAW.models import BaseModel
 
 
-class File:
+class File(BaseModel):
     """The representation of a File."""
     def __init__(self, client: Client, data: dict) -> None:
         """
         :param Client client: The client used by the user
         :param dict data: The data of the file
         """
-        self.client: Client = client
-        self._data: dict = data
-        self.uuid: str = data["uuid"]
-        self.device: str = data["device"]
-        self.filename: str = data["filename"]
-        self.content: str = data["content"]
-        self.directory: str = data["parent_dir_uuid"]
-        self.is_directory: bool = bool(data["is_directory"])
+        super().__init__(client, data)
 
     def info(self) -> Dict[str, Union[str, bool]]:
         """
@@ -28,13 +22,48 @@ class File:
         return self.client.microservice("device", ["file", "info"], device_uuid=self.device, file_uuid=self.uuid)
 
     @property
+    def device(self) -> str:
+        """
+        Return the device uuid from the host device.
+        :return: The uuid of the device
+        :rtype: str
+        """
+        return self._data["device"]
+
+    @property
+    def directory(self) -> str:
+        """
+        Return the directory uuid of the parent directory.
+        :return: The directory uuid
+        :rtype: str
+        """
+        return self._data["parent_dir_uuid"]
+
+    @directory.setter
+    def directory(self, new_parent_directory: str) -> None:
+        """
+        Update the directory to the new parent directory.
+        :param str new_parent_directory: The new directory of the file
+        """
+        self.directory = new_parent_directory
+
+    @property
+    def is_directory(self) -> bool:
+        """
+        Return if the file is a directory.
+        :return: True or False
+        :rtype: bool
+        """
+        return self._data["is_directory"]
+
+    @property
     def content(self) -> str:
         """
         Return the content of the file.
         :return: File content
         :rtype: str
         """
-        return self.content
+        return self._data["content"]
 
     @content.setter
     def content(self, content: str) -> None:
@@ -52,12 +81,12 @@ class File:
         :return: The name
         :rtype: str
         """
-        return self.filename
+        return self._data["filename"]
 
     @filename.setter
     def filename(self, new_filename: str) -> None:
         """
-        Sets a new filename for the file
+        Set a new filename for the file
         :param str new_filename: The new name
         """
         self.client.microservice("device", ["file", "move"], device_uuid=self.device, file_uuid=self.uuid,
