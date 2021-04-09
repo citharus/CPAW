@@ -36,3 +36,10 @@ class TestDevice(Test):
 
         self.assertTrue(mocked_method.called)
         self.assertEqual(mocked_method.return_value, response)
+
+    @patch("CPAW.models.device.Device.restart")
+    def test_restart(self, mocked_method) -> None:
+        response: bool = self.device.restart()
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(mocked_method.return_value, response)
