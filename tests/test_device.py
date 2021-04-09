@@ -25,3 +25,6 @@ class TestDevice(Test):
         response: list[Service] = self.device.services
 
         self.assertIsInstance(response[0], Service)
+
+    def test_name(self) -> None:
+        self.device.name = "Cuauhtli"
