@@ -192,6 +192,9 @@ class SSHService(Service):
         """
         super(SSHService, self).__init__(client, data)
 
+    def __repr__(self):
+        return f"SSHService({self.client}, {self._data})"
+
 
 class TelnetService(Service):
     """Representation of the telnet service."""
