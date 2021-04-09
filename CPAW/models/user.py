@@ -5,19 +5,25 @@ from CPAW.models import *
 from CPAW.utils import convert_services
 
 
-class User:
+class User(BaseModel):
     """The representation of an Cryptic Game user account"""
     def __init__(self, client: Client) -> None:
         """
         :param Client client: The client used by the user
         """
-        self.client: Client = client
-        self._data: dict = client.info()
-        self.name: str = self._data["name"]
-        self.uuid: str = self._data["uuid"]
+        super().__init__(client, client.info())
 
     def __repr__(self) -> str:
         return f"User({self.client})"
+
+    @property
+    def name(self) -> str:
+        """
+        Return the name of the user.
+        :return: The name
+        :rtype: str
+        """
+        return self._data["name"]
 
     @property
     def part_owner(self) -> List["Service"]:
