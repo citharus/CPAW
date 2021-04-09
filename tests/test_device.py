@@ -57,3 +57,10 @@ class TestDevice(Test):
 
         self.assertTrue(mocked_method.called)
         self.assertEqual(mocked_method.return_value, response)
+
+    @patch("CPAW.models.device.Device.part_owner")
+    def test_part_owner(self, mocked_method) -> None:
+        response: bool = self.device.part_owner()
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(mocked_method.return_value, response)
