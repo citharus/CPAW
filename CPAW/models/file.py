@@ -13,14 +13,6 @@ class File(BaseModel):
         """
         super().__init__(client, data)
 
-    def info(self) -> Dict[str, Union[str, bool]]:
-        """
-        Return information about the file.
-        :return: Dictionary containing information
-        :rtype: dict
-        """
-        return self.client.microservice("device", ["file", "info"], device_uuid=self.device, file_uuid=self.uuid)
-
     @property
     def device(self) -> str:
         """
@@ -91,6 +83,14 @@ class File(BaseModel):
         """
         self.client.microservice("device", ["file", "move"], device_uuid=self.device, file_uuid=self.uuid,
                                  new_parent_dir_uuid=self.directory, new_filename=new_filename)
+
+    def info(self) -> Dict[str, Union[str, bool]]:
+        """
+        Return information about the file.
+        :return: Dictionary containing information
+        :rtype: dict
+        """
+        return self.client.microservice("device", ["file", "info"], device_uuid=self.device, file_uuid=self.uuid)
 
     def move(self, new_directory: str) -> str:
         """
