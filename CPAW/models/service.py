@@ -1,23 +1,54 @@
 from typing import Dict, Union, List
 
 from CPAW import Client
+from CPAW.models import BaseModel
 from CPAW.utils import convert_services
 
 
-class Service:
+class Service(BaseModel):
     """Representation of the service base class."""
     def __init__(self, client: Client, data: dict) -> None:
         """
         :param Client client: The client used by the user
         :param dict data: The data of the service
         """
-        self.client: Client = client
-        self._data: dict = data
-        self.uuid: str = data["uuid"]
-        self.name: str = data["name"]
-        self.owner: str = data["owner"]
-        self.device: str = data["device"]
-        self.port: int = int(data["running_port"])
+        super().__init__(client, data)
+
+    @property
+    def name(self) -> str:
+        """
+        Return the name of the service.
+        :return: The name
+        :rtype: str
+        """
+        return self._data["name"]
+
+    @property
+    def owner(self) -> str:
+        """
+        Return the owner of the service.
+        :return: The owner
+        :rtype: str
+        """
+        return self._data["owner"]
+
+    @property
+    def device(self) -> str:
+        """
+        Return the device uuid of the service.
+        :return: The device uuid
+        :rtype: str
+        """
+        return self._data["device"]
+
+    @property
+    def port(self) -> int:
+        """
+        Return the port of the service.
+        :return: The port
+        :rtype: int
+        """
+        return self._data["running_port"]
 
     def info(self) -> Dict[str, Union[str, int]]:
         """
