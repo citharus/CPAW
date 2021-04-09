@@ -5,7 +5,7 @@ from CPAW.models import *
 from CPAW.utils import convert_services
 
 
-class Device:
+class Device(BaseModel):
     """The representation of a device"""
 
     def __init__(self, client: Client, data: dict) -> None:
@@ -13,15 +13,20 @@ class Device:
         :param Client client: The client used by the user
         :param dict data: The data of the device
         """
-        self.client: Client = client
-        self._data: dict = data
-        self.uuid: str = data["uuid"]
-        self.name: str = data["name"]
-        self.starter_device: bool = bool(data["starter_device"])
+        super().__init__(client, data)
 
     def __repr__(self) -> str:
         return f"Device({self.client}, {{'uuid': '{self.uuid}', 'name': '{self.name}', " \
                f"'starter_device': {self.starter_device}}})"
+
+    @property
+    def starter_device(self) -> bool:
+        """
+        Return if the device is a starter device.
+        :return: True or False
+        :rtype: bool
+        """
+        return self._data["starter_device"]
 
     @property
     def power(self) -> bool:
@@ -83,16 +88,23 @@ class Device:
         """
         return self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)
 
-    def change_name(self, name: str) -> str:
+    @property
+    def name(self) -> str:
         """
-        Change the device name.
-        :param str name: The new name of the device
-        :return: The new name
+        Return the name of the device.
+        :return: The name
         :rtype: str
+        """
+        return self._data["name"]
+
+    @name.setter
+    def name(self, name: str) -> None:
+        """
+        Update the device name.
+        :param str name: The new name of the device
         """
         self.name = self.client.microservice("device", ["device", "change_name"],
                                              device_uuid=self.uuid, name=name)["name"]
-        return self.name
 
     def toggle(self) -> bool:
         """
