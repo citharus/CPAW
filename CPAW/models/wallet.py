@@ -1,15 +1,24 @@
 from typing import Optional, Dict, Union
+
 from CPAW import Client
+from CPAW.models import BaseModel
 
 
-class Wallet:
+class Wallet(BaseModel):
     def __init__(self, client: Client, data: dict) -> None:
-        self.client: Client = client
-        self._data: dict = data
-        self.uuid: str = data["source_uuid"]
+        super().__init__(client, data)
 
     def __repr__(self) -> str:
         return f"Wallet({self.client}, {self._data})"
+
+    @property
+    def uuid(self) -> str:
+        """
+        Return the uuid of the wallet.
+        :return: The uuid
+        :rtype: str
+        """
+        return self._data["source_uuid"]
 
     @property
     def key(self) -> str:
