@@ -50,3 +50,10 @@ class TestDevice(Test):
 
         self.assertTrue(mocked_method.called)
         self.assertEqual(mocked_method.return_value, response)
+
+    @patch("CPAW.models.device.Device.exists")
+    def test_exists(self, mocked_method) -> None:
+        response: bool = self.device.exists()
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(mocked_method.return_value, response)
