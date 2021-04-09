@@ -13,6 +13,9 @@ class File(BaseModel):
         """
         super().__init__(client, data)
 
+    def __repr__(self) -> str:
+        return f"File({self.client}, {self._data})"
+
     @property
     def device(self) -> str:
         """
