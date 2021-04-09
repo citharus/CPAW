@@ -168,6 +168,9 @@ class PortscanService(Service):
         """
         super(PortscanService, self).__init__(client, data)
 
+    def __repr__(self):
+        return f"PortscanService({self.client}, {self._data})"
+
     def scan(self, target_device: str) -> List[Service]:
         """
         Scan a device for running services.
