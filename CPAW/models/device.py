@@ -80,14 +80,6 @@ class Device(BaseModel):
         response: dict = self.client.microservice("service", ["list"], device_uuid=self.uuid)["services"]
         return convert_services(self.client, response)
 
-    def info(self) -> Dict[str, Union[str, bool, List[Dict[str, str]]]]:
-        """
-        Return information about the device and it's hardware in a dictionary.
-        :return: Dictionary containing information
-        :rtype: dict
-        """
-        return self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)
-
     @property
     def name(self) -> str:
         """
@@ -105,6 +97,14 @@ class Device(BaseModel):
         """
         self.name = self.client.microservice("device", ["device", "change_name"],
                                              device_uuid=self.uuid, name=name)["name"]
+
+    def info(self) -> Dict[str, Union[str, bool, List[Dict[str, str]]]]:
+        """
+        Return information about the device and it's hardware in a dictionary.
+        :return: Dictionary containing information
+        :rtype: dict
+        """
+        return self.client.microservice("device", ["device", "info"], device_uuid=self.uuid)
 
     def toggle(self) -> bool:
         """
