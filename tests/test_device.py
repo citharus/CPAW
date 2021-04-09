@@ -82,3 +82,14 @@ class TestDevice(Test):
             [call("", "", "")]
         )
         self.assertEqual(mocked_method.return_value, response)
+
+    @patch("CPAW.models.device.Device.create_service")
+    def test_create_service(self, mocked_method) -> None:
+        response: Service = self.device.create_service("ssh")
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(
+            mocked_method.call_args_list,
+            [call("ssh")]
+        )
+        self.assertEqual(mocked_method.return_value, response)
