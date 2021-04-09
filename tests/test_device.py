@@ -71,3 +71,14 @@ class TestDevice(Test):
 
         self.assertTrue(mocked_method.called)
         self.assertEqual(mocked_method.return_value, response)
+
+    @patch("CPAW.models.device.Device.create_file")
+    def test_create_file(self, mocked_method) -> None:
+        response: File = self.device.create_file("", "", "")
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(
+            mocked_method.call_args_list,
+            [call("", "", "")]
+        )
+        self.assertEqual(mocked_method.return_value, response)
