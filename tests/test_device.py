@@ -1,4 +1,4 @@
-from CPAW.models import Device, File, Hardware
+from CPAW.models import Device, File, Hardware, Service
 from tests.test import Test, getenv
 
 
@@ -20,3 +20,8 @@ class TestDevice(Test):
         response: list[Hardware] = self.device.hardware
 
         self.assertIsInstance(response[0], Hardware)
+
+    def test_services(self) -> None:
+        response: list[Service] = self.device.services
+
+        self.assertIsInstance(response[0], Service)
