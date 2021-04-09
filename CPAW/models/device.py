@@ -16,8 +16,7 @@ class Device(BaseModel):
         super().__init__(client, data)
 
     def __repr__(self) -> str:
-        return f"Device({self.client}, {{'uuid': '{self.uuid}', 'name': '{self.name}', " \
-               f"'starter_device': {self.starter_device}}})"
+        return f"Device({self.client}, {self._data})"
 
     @property
     def starter_device(self) -> bool:
