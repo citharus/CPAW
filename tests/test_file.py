@@ -17,4 +17,4 @@ class TestFile(Test):
         random = randint(1, 1000000)
         self.file.filename = str(random)
 
-        self.assertEqual(self.file.content, self.file._data["filename"])
+        self.assertEqual(self.file.filename, self.file._data["filename"])
