@@ -9,10 +9,10 @@ class BaseModel:
         :param dict data: The data of the model
         """
         self.client: Client = client
-        self.__data: dict = data
+        self._data: dict = data
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}(client={self.client}, data={self.__data})"
+        return f"{self.__class__.__name__}(client={self.client}, data={self._data})"
 
     @property
     def uuid(self) -> str:
@@ -21,7 +21,7 @@ class BaseModel:
         :return: The uuid
         :rtype: str
         """
-        return self.__data["uuid"]
+        return self._data["uuid"]
 
     @property
     def data(self) -> dict:
@@ -30,4 +30,4 @@ class BaseModel:
         :return: The data
         :rtype: dict
         """
-        return self.__data
+        return self._data

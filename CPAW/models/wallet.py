@@ -15,7 +15,7 @@ class Wallet(BaseModel):
         :return: The uuid
         :rtype: str
         """
-        return self.__data["source_uuid"]
+        return self._data["source_uuid"]
 
     @property
     def key(self) -> str:
@@ -24,8 +24,8 @@ class Wallet(BaseModel):
         :return: The key of the wallet
         :rtype: str
         """
-        if "key" in self.__data:
-            return self.__data["key"]
+        if "key" in self._data:
+            return self._data["key"]
 
     @property
     def owner(self) -> str:

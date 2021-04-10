@@ -18,7 +18,7 @@ class Hardware(BaseModel):
         :return: The device uuid
         :rtype: str
         """
-        return self.__data["device_uuid"]
+        return self._data["device_uuid"]
 
     @property
     def name(self) -> str:
@@ -27,7 +27,7 @@ class Hardware(BaseModel):
         :return: The name
         :rtype: str
         """
-        return self.__data["hardware_element"]
+        return self._data["hardware_element"]
 
     @property
     def type(self) -> str:
@@ -36,4 +36,4 @@ class Hardware(BaseModel):
         :return: The type
         :rtype: str
         """
-        return self.__data["hardware_type"]
+        return self._data["hardware_type"]

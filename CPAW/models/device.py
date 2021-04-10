@@ -22,7 +22,7 @@ class Device(BaseModel):
         :return: True or False
         :rtype: bool
         """
-        return self.__data["starter_device"]
+        return self._data["starter_device"]
 
     @property
     def power(self) -> bool:
@@ -83,7 +83,7 @@ class Device(BaseModel):
         :return: The name
         :rtype: str
         """
-        return self.__data["name"]
+        return self._data["name"]
 
     @name.setter
     def name(self, name: str) -> None:
@@ -91,7 +91,7 @@ class Device(BaseModel):
         Update the device name.
         :param str name: The new name of the device
         """
-        self.__data["name"] = self.client.microservice("device", ["device", "change_name"],
+        self._data["name"] = self.client.microservice("device", ["device", "change_name"],
                                                       device_uuid=self.uuid, name=name)
 
     def info(self) -> Dict[str, Union[str, bool, List[Dict[str, str]]]]:

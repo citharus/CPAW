@@ -23,7 +23,7 @@ class User(BaseModel):
         :return: The name
         :rtype: str
         """
-        return self.__data["name"]
+        return self._data["name"]
 
     @property
     def part_owner(self) -> List["Service"]:

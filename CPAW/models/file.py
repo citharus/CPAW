@@ -21,7 +21,7 @@ class File(BaseModel):
         :return: The uuid of the device
         :rtype: str
         """
-        return self.__data["device"]
+        return self._data["device"]
 
     @property
     def directory(self) -> str:
@@ -30,7 +30,7 @@ class File(BaseModel):
         :return: The directory uuid
         :rtype: str
         """
-        return self.__data["parent_dir_uuid"]
+        return self._data["parent_dir_uuid"]
 
     @directory.setter
     def directory(self, new_parent_directory: str) -> None:
@@ -38,7 +38,7 @@ class File(BaseModel):
         Update the directory to the new parent directory.
         :param str new_parent_directory: The new directory of the file
         """
-        self.__data["parent_dir_uuid"] = new_parent_directory
+        self._data["parent_dir_uuid"] = new_parent_directory
 
     @property
     def is_directory(self) -> bool:
@@ -47,7 +47,7 @@ class File(BaseModel):
         :return: True or False
         :rtype: bool
         """
-        return self.__data["is_directory"]
+        return self._data["is_directory"]
 
     @property
     def content(self) -> str:
@@ -56,7 +56,7 @@ class File(BaseModel):
         :return: File content
         :rtype: str
         """
-        return self.__data["content"]
+        return self._data["content"]
 
     @content.setter
     def content(self, content: str) -> None:
@@ -64,7 +64,7 @@ class File(BaseModel):
         Update the content of the file.
         :param str content: The new content of the file
         """
-        self.__data["content"] = self.client.microservice("device", ["file", "update"], device_uuid=self.device,
+        self._data["content"] = self.client.microservice("device", ["file", "update"], device_uuid=self.device,
                                                           content=content, file_uuid=self.uuid)["content"]
 
     @property
@@ -74,7 +74,7 @@ class File(BaseModel):
         :return: The name
         :rtype: str
         """
-        return self.__data["filename"]
+        return self._data["filename"]
 
     @filename.setter
     def filename(self, new_filename: str) -> None:
@@ -82,7 +82,7 @@ class File(BaseModel):
         Set a new filename for the file
         :param str new_filename: The new name
         """
-        self.__data["filename"] = self.client.microservice("device", ["file", "move"], device_uuid=self.device,
+        self._data["filename"] = self.client.microservice("device", ["file", "move"], device_uuid=self.device,
                                                            file_uuid=self.uuid, new_parent_dir_uuid=self.directory,
                                                            new_filename=new_filename)
 
