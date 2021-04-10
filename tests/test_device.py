@@ -1,6 +1,7 @@
+from unittest.mock import patch, call
+
 from CPAW.models import Device, File, Hardware, Service, Wallet, Miner
 from tests.test import Test, getenv
-from unittest.mock import patch, call
 
 
 class TestDevice(Test):
