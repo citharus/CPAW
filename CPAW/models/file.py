@@ -14,7 +14,7 @@ class File(BaseModel):
         super().__init__(client, data)
 
     def __repr__(self) -> str:
-        return f"File({self.client}, {self._data})"
+        return f"File({self.client}, {self.__data})"
 
     @property
     def device(self) -> str:
@@ -23,7 +23,7 @@ class File(BaseModel):
         :return: The uuid of the device
         :rtype: str
         """
-        return self._data["device"]
+        return self.__data["device"]
 
     @property
     def directory(self) -> str:
@@ -32,7 +32,7 @@ class File(BaseModel):
         :return: The directory uuid
         :rtype: str
         """
-        return self._data["parent_dir_uuid"]
+        return self.__data["parent_dir_uuid"]
 
     @directory.setter
     def directory(self, new_parent_directory: str) -> None:
@@ -49,7 +49,7 @@ class File(BaseModel):
         :return: True or False
         :rtype: bool
         """
-        return self._data["is_directory"]
+        return self.__data["is_directory"]
 
     @property
     def content(self) -> str:
@@ -58,7 +58,7 @@ class File(BaseModel):
         :return: File content
         :rtype: str
         """
-        return self._data["content"]
+        return self.__data["content"]
 
     @content.setter
     def content(self, content: str) -> None:
@@ -76,7 +76,7 @@ class File(BaseModel):
         :return: The name
         :rtype: str
         """
-        return self._data["filename"]
+        return self.__data["filename"]
 
     @filename.setter
     def filename(self, new_filename: str) -> None:

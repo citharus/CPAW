@@ -12,7 +12,7 @@ class Hardware(BaseModel):
         super().__init__(client, data)
 
     def __repr__(self) -> str:
-        return f"Hardware({self.client}, {self._data})"
+        return f"Hardware({self.client}, {self.__data})"
 
     @property
     def device(self) -> str:
@@ -21,7 +21,7 @@ class Hardware(BaseModel):
         :return: The device uuid
         :rtype: str
         """
-        return self._data["device_uuid"]
+        return self.__data["device_uuid"]
 
     @property
     def name(self) -> str:
@@ -30,7 +30,7 @@ class Hardware(BaseModel):
         :return: The name
         :rtype: str
         """
-        return self._data["hardware_element"]
+        return self.__data["hardware_element"]
 
     @property
     def type(self) -> str:
@@ -39,4 +39,4 @@ class Hardware(BaseModel):
         :return: The type
         :rtype: str
         """
-        return self._data["hardware_type"]
+        return self.__data["hardware_type"]

@@ -9,7 +9,7 @@ class BaseModel:
         :param dict data: The data of the model
         """
         self.client: Client = client
-        self._data: dict = data
+        self.__data: dict = data
 
     @property
     def uuid(self) -> str:
@@ -18,7 +18,7 @@ class BaseModel:
         :return: The uuid
         :rtype: str
         """
-        return self._data["uuid"]
+        return self.__data["uuid"]
 
     @property
     def data(self) -> dict:
@@ -27,4 +27,4 @@ class BaseModel:
         :return: The data
         :rtype: dict
         """
-        return self._data
+        return self.__data

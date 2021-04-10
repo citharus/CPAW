@@ -15,7 +15,7 @@ class Service(BaseModel):
         super().__init__(client, data)
 
     def __repr__(self) -> str:
-        return f"{self.__class__.__name__}({self.client}, {self._data})"
+        return f"{self.__class__.__name__}({self.client}, {self.__data})"
 
     @property
     def name(self) -> str:
@@ -24,7 +24,7 @@ class Service(BaseModel):
         :return: The name
         :rtype: str
         """
-        return self._data["name"]
+        return self.__data["name"]
 
     @property
     def owner(self) -> str:
@@ -33,7 +33,7 @@ class Service(BaseModel):
         :return: The owner
         :rtype: str
         """
-        return self._data["owner"]
+        return self.__data["owner"]
 
     @property
     def device(self) -> str:
@@ -42,7 +42,7 @@ class Service(BaseModel):
         :return: The device uuid
         :rtype: str
         """
-        return self._data["device"]
+        return self.__data["device"]
 
     @property
     def port(self) -> int:
@@ -51,7 +51,7 @@ class Service(BaseModel):
         :return: The port
         :rtype: int
         """
-        return self._data["running_port"]
+        return self.__data["running_port"]
 
     def info(self) -> Dict[str, Union[str, int]]:
         """

@@ -16,7 +16,7 @@ class Device(BaseModel):
         super().__init__(client, data)
 
     def __repr__(self) -> str:
-        return f"Device({self.client}, {self._data})"
+        return f"Device({self.client}, {self.__data})"
 
     @property
     def starter_device(self) -> bool:
@@ -25,7 +25,7 @@ class Device(BaseModel):
         :return: True or False
         :rtype: bool
         """
-        return self._data["starter_device"]
+        return self.__data["starter_device"]
 
     @property
     def power(self) -> bool:
@@ -86,7 +86,7 @@ class Device(BaseModel):
         :return: The name
         :rtype: str
         """
-        return self._data["name"]
+        return self.__data["name"]
 
     @name.setter
     def name(self, name: str) -> None:
@@ -94,7 +94,7 @@ class Device(BaseModel):
         Update the device name.
         :param str name: The new name of the device
         """
-        self._data["name"] = self.client.microservice("device", ["device", "change_name"],
+        self.__data["name"] = self.client.microservice("device", ["device", "change_name"],
                                                       device_uuid=self.uuid, name=name)
 
     def info(self) -> Dict[str, Union[str, bool, List[Dict[str, str]]]]:
