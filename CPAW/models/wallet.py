@@ -8,9 +8,6 @@ class Wallet(BaseModel):
     def __init__(self, client: Client, data: dict) -> None:
         super().__init__(client, data)
 
-    def __repr__(self) -> str:
-        return f"Wallet({self.client}, {self.__data})"
-
     @property
     def uuid(self) -> str:
         """

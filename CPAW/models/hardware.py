@@ -11,9 +11,6 @@ class Hardware(BaseModel):
         """
         super().__init__(client, data)
 
-    def __repr__(self) -> str:
-        return f"Hardware({self.client}, {self.__data})"
-
     @property
     def device(self) -> str:
         """

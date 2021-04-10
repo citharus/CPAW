@@ -11,6 +11,9 @@ class BaseModel:
         self.client: Client = client
         self.__data: dict = data
 
+    def __repr__(self) -> str:
+        return f"{self.__class__.__name__}(client={self.client}, data={self.__data})"
+
     @property
     def uuid(self) -> str:
         """

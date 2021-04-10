@@ -15,9 +15,6 @@ class Device(BaseModel):
         """
         super().__init__(client, data)
 
-    def __repr__(self) -> str:
-        return f"Device({self.client}, {self.__data})"
-
     @property
     def starter_device(self) -> bool:
         """

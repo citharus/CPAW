@@ -14,9 +14,6 @@ class Service(BaseModel):
         """
         super().__init__(client, data)
 
-    def __repr__(self) -> str:
-        return f"{self.__class__.__name__}({self.client}, {self.__data})"
-
     @property
     def name(self) -> str:
         """
