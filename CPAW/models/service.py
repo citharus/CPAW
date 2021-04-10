@@ -15,7 +15,7 @@ class Service(BaseModel):
         super().__init__(client, data)
 
     def __repr__(self) -> str:
-        return f"Service({self.client}, {self._data})"
+        return f"{self.__class__.__name__}({self.client}, {self._data})"
 
     @property
     def name(self) -> str:
@@ -126,9 +126,6 @@ class BruteforceService(Service):
         """
         super(BruteforceService, self).__init__(client, data)
 
-    def __repr__(self):
-        return f"BruteforceService({self.client}, {self._data})"
-
     def attack(self, target_service: Service) -> bool:
         """
         Start a bruteforce attack against the target service.
@@ -168,9 +165,6 @@ class PortscanService(Service):
         """
         super(PortscanService, self).__init__(client, data)
 
-    def __repr__(self):
-        return f"PortscanService({self.client}, {self._data})"
-
     def scan(self, target_device: str) -> List[Service]:
         """
         Scan a device for running services.
@@ -192,9 +186,6 @@ class SSHService(Service):
         """
         super(SSHService, self).__init__(client, data)
 
-    def __repr__(self):
-        return f"SSHService({self.client}, {self._data})"
-
 
 class TelnetService(Service):
     """Representation of the telnet service."""
@@ -204,6 +195,3 @@ class TelnetService(Service):
         :param dict data: The data of the telnet service
         """
         super(TelnetService, self).__init__(client, data)
-
-    def __repr__(self):
-        return f"TelnetService({self.client}, {self._data})"
