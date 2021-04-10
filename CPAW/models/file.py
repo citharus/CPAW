@@ -6,6 +6,7 @@ from CPAW.models import BaseModel
 
 class File(BaseModel):
     """The representation of a File."""
+
     def __init__(self, client: Client, data: dict) -> None:
         """
         :param Client client: The client used by the user
@@ -40,7 +41,7 @@ class File(BaseModel):
         Update the directory to the new parent directory.
         :param str new_parent_directory: The new directory of the file
         """
-        self.directory = new_parent_directory
+        self.__data["parent_dir_uuid"] = new_parent_directory
 
     @property
     def is_directory(self) -> bool:
@@ -66,8 +67,8 @@ class File(BaseModel):
         Update the content of the file.
         :param str content: The new content of the file
         """
-        self.content = self.client.microservice("device", ["file", "update"], device_uuid=self.device, content=content,
-                                                file_uuid=self.uuid)["content"]
+        self.__data["content"] = self.client.microservice("device", ["file", "update"], device_uuid=self.device,
+                                                          content=content, file_uuid=self.uuid)["content"]
 
     @property
     def filename(self) -> str:
@@ -84,8 +85,9 @@ class File(BaseModel):
         Set a new filename for the file
         :param str new_filename: The new name
         """
-        self.client.microservice("device", ["file", "move"], device_uuid=self.device, file_uuid=self.uuid,
-                                 new_parent_dir_uuid=self.directory, new_filename=new_filename)
+        self.__data["filename"] = self.client.microservice("device", ["file", "move"], device_uuid=self.device,
+                                                           file_uuid=self.uuid, new_parent_dir_uuid=self.directory,
+                                                           new_filename=new_filename)
 
     def info(self) -> Dict[str, Union[str, bool]]:
         """
