@@ -19,3 +19,12 @@ class BaseModel:
         :rtype: str
         """
         return self._data["uuid"]
+
+    @property
+    def data(self) -> dict:
+        """
+        Return the data of the model in a dictionary.
+        :return: The data
+        :rtype: dict
+        """
+        return self._data
