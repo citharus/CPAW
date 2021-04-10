@@ -31,7 +31,7 @@ setup(
     packages=find_packages(exclude=["tests", "tests.*"]),
     keywords="api wrapper, cryptic-game",
     pyton_requires=">=3.0",
-    install_requires=["json", "websocket-client"],
+    install_requires=["json", "websocket-client", "python-dotenv"],
     project_urls={
         "Bug Reports": "https://github.com/citharus/CPAW/issues",
         "Source": "https://github.com/citharus/CPAW"
