@@ -84,7 +84,7 @@ class File(BaseModel):
         """
         self._data["filename"] = self.client.microservice("device", ["file", "move"], device_uuid=self.device,
                                                           file_uuid=self.uuid, new_parent_dir_uuid=self.directory,
-                                                          new_filename=new_filename)
+                                                          new_filename=new_filename)["filename"]
 
     def info(self) -> Dict[str, Union[str, bool]]:
         """
