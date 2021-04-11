@@ -1,4 +1,4 @@
-from unittest.mock import patch
+from unittest.mock import patch, call
 
 from CPAW.exceptions import FileAlreadyExistsException
 from CPAW.models import File, Device
@@ -24,4 +24,15 @@ class TestFile(Test):
         response: dict = self.file.info()
 
         self.assertTrue(mocked_method.called)
+        self.assertEqual(mocked_method.return_value, response)
+
+    @patch("CPAW.models.file.File.move")
+    def test_move(self, mocked_method) -> None:
+        response: str = self.file.move("")
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(
+            mocked_method.call_args_list,
+            [call("")]
+        )
         self.assertEqual(mocked_method.return_value, response)
