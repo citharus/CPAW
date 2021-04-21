@@ -31,6 +31,11 @@ class TestDevice(Test):
     def test_name(self) -> None:
         self.device.name = "Cuauhtli"
 
+    def test_miner(self) -> None:
+        response: Miner = self.device.miner
+
+        self.assertIsInstance(response, Miner)
+
     @patch("CPAW.models.device.Device.info")
     def test_info(self, mocked_method) -> None:
         response: dict = self.device.info()
