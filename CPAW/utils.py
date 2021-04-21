@@ -1,6 +1,7 @@
 from typing import List
 
 from CPAW import Client
+from CPAW.models import Service
 
 
 def convert_services(client: Client, service_list: dict) -> List["Service"]:
