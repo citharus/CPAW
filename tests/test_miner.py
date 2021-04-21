@@ -13,3 +13,6 @@ class TestMiner(Test):
         self.miner.power = 1.0
 
         self.assertEqual(self.miner.power, 1.0)
+
+    def test_wallet(self) -> None:
+        self.assertRegex(self.miner.wallet, r"[\d\w]{8}(-[\d\w]{4}){3}-[\d\w]{12}")
