@@ -16,3 +16,10 @@ class TestMiner(Test):
 
     def test_wallet(self) -> None:
         self.assertRegex(self.miner.wallet, r"[\d\w]{8}(-[\d\w]{4}){3}-[\d\w]{12}")
+
+    @patch("CPAW.models.miner.Miner.info")
+    def test_info(self, mocked_method) -> None:
+        response: dict = self.miner.info()
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(mocked_method.return_value, response)
