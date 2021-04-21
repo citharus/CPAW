@@ -77,6 +77,15 @@ class Device(BaseModel):
         return convert_services(self.client, response)
 
     @property
+    def miner(self) -> "Miner":
+        """
+        Return the Miner Service of the device
+        :return: A Miner
+        :rtype: Miner
+        """
+        return [i for i in self.services if i.__class__.__name__ == "Miner"][0]
+
+    @property
     def name(self) -> str:
         """
         Return the name of the device.
