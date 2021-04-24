@@ -1,1 +1,17 @@
+name: Test CPAW
 
+on:
+  pull_request: 
+    branches: [ main ]
+  schedule:
+    - cron: "0 12 * * *"
+    
+jobs:
+  test-client:
+    name: Test CPAW client
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install requirements
+        run: pip install -r requirements.txt
+      - name: Start unittest
+        run: python3.9 -m unittest tests.test_client
