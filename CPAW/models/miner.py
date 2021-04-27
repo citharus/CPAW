@@ -1,5 +1,6 @@
 from CPAW import Client
 from CPAW.models.service import Service
+from CPAW.models.wallet import Wallet
 
 
 class Miner(Service):
@@ -29,13 +30,14 @@ class Miner(Service):
         self.client.microservice("service", ["miner", "power"], service_uuid=self.uuid, power=power)
 
     @property
-    def wallet(self) -> str:
+    def wallet(self) -> Wallet:
         """
         Return the current wallet the miner is connected to.
         :return: The wallet uuid
         :rtype: str
         """
-        return self.client.microservice("service", ["miner", "get"], service_uuid=self.uuid)["wallet"]
+        data: dict = self.client.microservice("service", ["miner", "get"], service_uuid=self.uuid)["wallet"]
+        return Wallet(self.client, {"source_uuid": data})
 
     def info(self) -> dict:
         """
