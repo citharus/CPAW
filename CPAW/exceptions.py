@@ -42,6 +42,11 @@ class UnknownMicroserviceException(Exception):
         super().__init__("Unknown Microservice: " + microservice)
 
 
+class NoWalletKeyException(Exception):
+    def __init__(self):
+        super().__init__("No key stored for this wallet.")
+
+
 class MicroserviceException(Exception):
     error: str = None
 
