@@ -1,6 +1,7 @@
 from typing import Optional, Dict, Union
 
 from CPAW import Client
+from CPAW.exceptions import NoWalletKeyException
 from CPAW.models import BaseModel
 
 
@@ -24,8 +25,10 @@ class Wallet(BaseModel):
         :return: The key of the wallet
         :rtype: str
         """
-        if "key" in self._data:
+        try:
             return self._data["key"]
+        except KeyError:
+            raise NoWalletKeyException
 
     @property
     def owner(self) -> str:
