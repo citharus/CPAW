@@ -1,10 +1,11 @@
-from typing import List
+from typing import List, Union
 
 from CPAW import Client
 from CPAW.models import *
 
 
-def convert_services(client: Client, service_list: dict) -> List["Service"]:
+def convert_services(client: Client, service_list: dict) -> List[Union["Service", "TelnetService", "PortscanService",
+                                                                       "SSHService", "BruteforceService", "Miner"]]:
     """
     Convert a list with services as dicts into a list with services.
     :param Client client: The client used by the user
