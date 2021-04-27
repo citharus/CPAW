@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from CPAW.models import Device, Miner
+from CPAW.models import Device, Miner, Wallet
 from tests.test import Test, getenv
 
 
@@ -15,7 +15,7 @@ class TestMiner(Test):
         self.assertEqual(self.miner.power, 1.0)
 
     def test_wallet(self) -> None:
-        self.assertRegex(self.miner.wallet, r"[\d\w]{8}(-[\d\w]{4}){3}-[\d\w]{12}")
+        self.assertIsInstance(self.miner.wallet, Wallet)
 
     @patch("CPAW.models.miner.Miner.info")
     def test_info(self, mocked_method) -> None:
