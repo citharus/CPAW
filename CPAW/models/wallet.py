@@ -30,6 +30,14 @@ class Wallet(BaseModel):
         except KeyError:
             raise NoWalletKeyException
 
+    @key.setter
+    def key(self, key: str) -> None:
+        """
+        Set or update the secure key of the wallet.
+        :param str key: The secure key
+        """
+        self._data["key"] = key
+
     @property
     def owner(self) -> str:
         """
