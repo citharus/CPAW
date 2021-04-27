@@ -1,6 +1,7 @@
 from typing import Optional, List, Dict, Union
 
 from CPAW import Client
+from CPAW.exceptions import MinerNotFoundException
 from CPAW.models import *
 from CPAW.utils import convert_services
 
@@ -79,11 +80,14 @@ class Device(BaseModel):
     @property
     def miner(self) -> "Miner":
         """
-        Return the Miner Service of the device
+        Return the Miner Service of the device.
         :return: A Miner
         :rtype: Miner
         """
-        return [i for i in self.services if i.__class__.__name__ == "Miner"][0]
+        try:
+            return [i for i in self.services if i.__class__.__name__ == "Miner"][0]
+        except IndexError:
+            raise MinerNotFoundException
 
     @property
     def name(self) -> str:
