@@ -39,6 +39,14 @@ class Miner(Service):
         data: dict = self.client.microservice("service", ["miner", "get"], service_uuid=self.uuid)["wallet"]
         return Wallet(self.client, {"source_uuid": data})
 
+    @wallet.setter
+    def wallet(self, wallet: Wallet) -> None:
+        """
+        Update the wallet the miner transfers the coins to.
+        :param Wallet wallet: The new wallet
+        """
+        self.client.microservice("service", ["miner", "wallet"], service_uuid=self.uuid, wallet_uuid=wallet.uuid)
+
     def info(self) -> dict:
         """
         Return information about the miner in a dictionary.
