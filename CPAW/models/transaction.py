@@ -50,3 +50,11 @@ class Transaction(BaseModel):
         :return: The description
         """
         return self._data["usage"]
+
+    @property
+    def miner(self) -> str:
+        """
+        Return True if the transaction is from an miner.
+        :return: True or False
+        """
+        return self._data["origin"]
