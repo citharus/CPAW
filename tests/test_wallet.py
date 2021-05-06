@@ -29,3 +29,14 @@ class TestWallet(Test):
             [call(self.wallet.key)]
         )
         self.assertEqual(mocked_method.return_value, response)
+
+    @patch("CPAW.models.wallet.Wallet.transactions")
+    def test_transactions(self, mocked_method) -> None:
+        response: list = self.wallet.transactions(self.wallet.key)
+
+        self.assertTrue(mocked_method.called)
+        self.assertEqual(
+            mocked_method.call_args_list,
+            [call(self.wallet.key)]
+        )
+        self.assertEqual(mocked_method.return_value, response)
