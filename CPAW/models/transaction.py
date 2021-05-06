@@ -10,3 +10,11 @@ class Transaction(BaseModel):
         :param dict data: The data of the device
         """
         super().__init__(client, data)
+
+    @property
+    def id(self) -> int:
+        """
+        Return the id of the transaction.
+        :return: The id
+        """
+        return int(self._data["id"])
