@@ -38,15 +38,6 @@ class Wallet(BaseModel):
         """
         self._data["key"] = key
 
-    @property
-    def owner(self) -> str:
-        """
-        Return the owner of the wallet.
-        :return: The owner of the wallet
-        :rtype: str
-        """
-        return self.client.microservice("currency", ["owner"], source_uuid=self.uuid)["owner"]
-
     def info(self, key: str) -> Dict[str, Union[str, float]]:
         """
         Return information about the wallet in a dictionary.
@@ -64,14 +55,6 @@ class Wallet(BaseModel):
         :rtype: float
         """
         return self.client.microservice("currency", ["get"], source_uuid=self.uuid, key=key)["amount"]
-
-    def exists(self) -> bool:
-        """
-        Check if the wallet exists.
-        :return: True if the wallet exists or False if it doesn't
-        :rtype: bool
-        """
-        return self.client.microservice("currency", ["exists"], source_uuid=self.uuid)["exists"]
 
     def delete(self, key: Optional[str] = None) -> bool:
         """
