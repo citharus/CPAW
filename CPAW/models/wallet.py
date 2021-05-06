@@ -1,8 +1,8 @@
-from typing import Optional, Dict, Union
+from typing import Optional, Dict, Union, List
 
 from CPAW import Client
 from CPAW.exceptions import NoWalletKeyException
-from CPAW.models import BaseModel
+from CPAW.models import BaseModel, Transaction
 
 
 class Wallet(BaseModel):
@@ -42,6 +42,18 @@ class Wallet(BaseModel):
         :param str key: The secure key
         """
         self._data["key"] = key
+
+    def transactions(self, key: str, count: int = 10, offset: int = 0) -> List[Transaction]:
+        """
+        Return the transaction history of the wallet.
+        :param int offset: The position to start from
+        :param int count: The number of transactions
+        :param str key: The secure key of the wallet
+        :return: The transaction history
+        """
+        response: list = self.client.microservice("currency", ["transactions"], source_uuid=self.uuid, key=key,
+                                                  count=count, offset=offset)["transactions"]
+        return [Transaction(self.client, data) for data in response]
 
     def info(self, key: str) -> Dict[str, Union[str, float]]:
         """
