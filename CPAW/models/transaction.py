@@ -26,3 +26,11 @@ class Transaction(BaseModel):
         :return: The wallet uuid of the sender
         """
         return self._data["source_uuid"]
+
+    @property
+    def amount(self) -> float:
+        """
+        Return the transaction amount of coins.
+        :return: The amount
+        """
+        return self._data["send_amount"]
