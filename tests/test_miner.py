@@ -16,6 +16,7 @@ class TestMiner(Test):
 
     def test_wallet(self) -> None:
         self.assertIsInstance(self.miner.wallet, Wallet)
+        self.miner.wallet = self.miner.wallet
 
     @patch("CPAW.models.miner.Miner.info")
     def test_info(self, mocked_method) -> None:
