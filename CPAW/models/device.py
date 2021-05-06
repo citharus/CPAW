@@ -8,7 +8,6 @@ from CPAW.utils import convert_services
 
 class Device(BaseModel):
     """The representation of a device"""
-
     def __init__(self, client: Client, data: dict) -> None:
         """
         :param Client client: The client used by the user

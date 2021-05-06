@@ -6,7 +6,6 @@ from CPAW.models import BaseModel
 
 class File(BaseModel):
     """The representation of a File."""
-
     def __init__(self, client: Client, data: dict) -> None:
         """
         :param Client client: The client used by the user
