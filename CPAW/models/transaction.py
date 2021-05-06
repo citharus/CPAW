@@ -34,3 +34,11 @@ class Transaction(BaseModel):
         :return: The amount
         """
         return self._data["send_amount"]
+
+    @property
+    def receiver(self) -> str:
+        """
+        Return the wallet that received the transaction.
+        :return: The receiver wallet
+        """
+        return self._data["destination_uuid"]
