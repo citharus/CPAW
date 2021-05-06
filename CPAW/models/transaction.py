@@ -18,3 +18,11 @@ class Transaction(BaseModel):
         :return: The id
         """
         return int(self._data["id"])
+
+    @property
+    def sender(self) -> str:
+        """
+        Return the wallet the transaction originated from.
+        :return: The wallet uuid of the sender
+        """
+        return self._data["source_uuid"]
