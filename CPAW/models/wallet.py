@@ -6,7 +6,12 @@ from CPAW.models import BaseModel
 
 
 class Wallet(BaseModel):
+    """The representation of an wallet"""
     def __init__(self, client: Client, data: dict) -> None:
+        """
+        :param Client client: The client used by the user
+        :param dict data: The data of the device
+        """
         super().__init__(client, data)
 
     @property
