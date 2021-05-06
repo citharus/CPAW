@@ -47,14 +47,14 @@ class Wallet(BaseModel):
         """
         return self.client.microservice("currency", ["owner"], source_uuid=self.uuid)["owner"]
 
-    def info(self, key: Optional[str]) -> Dict[str, Union[str, float]]:
+    def info(self, key: str) -> Dict[str, Union[str, float]]:
         """
         Return information about the wallet in a dictionary.
         :param key:
         :return: Dictionary containing information
         :rtype: dict
         """
-        return self.client.microservice("currency", ["get"], source_uuid=self.uuid, key=key or self.key)
+        return self.client.microservice("currency", ["get"], source_uuid=self.uuid, key=key)
 
     def amount(self, key: str) -> float:
         """
