@@ -2,7 +2,8 @@ from typing import Optional, Dict, Union, List
 
 from CPAW import Client
 from CPAW.exceptions import NoWalletKeyException
-from CPAW.models import BaseModel, Transaction
+from CPAW.models import BaseModel
+from CPAW.models.transaction import Transaction
 
 
 class Wallet(BaseModel):
