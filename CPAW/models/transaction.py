@@ -42,3 +42,11 @@ class Transaction(BaseModel):
         :return: The receiver wallet
         """
         return self._data["destination_uuid"]
+
+    @property
+    def usage(self) -> str:
+        """
+        Return the usage message of the transaction
+        :return: The description
+        """
+        return self._data["usage"]
